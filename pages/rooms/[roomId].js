@@ -34,7 +34,7 @@ const Room = () => {
     <p className={styles.title}>Room: {roomId}</p>
     <ul className={styles.chatlist}>
       {
-        chats.map(({chat}) => <li>{ chat }</li>)
+        chats.map(({chat}, index) => <li key={index}>{ chat }</li>)
       }
     </ul>
     <input type="text" onInput={handleInput} value={chat} onKeyPress={handleKeyPress}/>

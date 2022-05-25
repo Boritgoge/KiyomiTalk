@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react';
 import db, { write, read } from '/components/FirebaseDatabase'
 import Link from 'next/link'
-const Room = () => {
+const Rooms = () => {
   const [rooms, setRooms] = useState([])
   const [title, setTitle] = useState('')
   useEffect(() => {
@@ -25,7 +25,7 @@ const Room = () => {
     <ul>
         {
             rooms.map( ({roomId, title}) => 
-            <li>
+            <li key={roomId}>
                 <Link href={`/rooms/${roomId}`}>
                     <a>{ title }</a>
                 </Link>
@@ -39,4 +39,4 @@ const Room = () => {
   </>
 }
 
-export default Room
+export default Rooms
