@@ -7,14 +7,10 @@ const Room = () => {
   const [chats, setChats] = useState([])
   const [chat, setChat] = useState('')
   useEffect(() => {
-    const unsubscribe = read(`rooms/${roomId}/chats`, (data) => {
+    read(`rooms/${roomId}/chats`, (data) => {
       setChats(() => [...Object.keys(data || {}).map(chatId => data[chatId])])
     })
-
-    return () => {
-        unsubscribe()
-    }
-  }, db)
+  }, [db])
 
   const createChat = () => {
     write(`rooms/${roomId}/chats`, { chat })
@@ -32,7 +28,7 @@ const Room = () => {
     <p>Room: {roomId}</p>
     <ul>
       {
-        chats.map(({chat}, index) => <li key={index}>{ chat }</li>)
+        chats && chats.map(({chat}, index) => <li key={index}>{ chat }</li>)
       }
     </ul>
     <input type="text" onInput={handleInput} value={chat} onKeyPress={handleKeyPress}/>
