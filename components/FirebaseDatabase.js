@@ -23,7 +23,9 @@ export function write(path, data) {
 
 export function read(path, callback) {
     const _ref = ref(db, path);
-    onValue(_ref, (snapshot) => {
+    return onValue(_ref, (snapshot) => {
         callback(snapshot.val());
     });
 }
+
+export default db
