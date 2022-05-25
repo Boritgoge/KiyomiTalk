@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { write, read } from '/components/FirebaseDatabase'
+// import { write, read } from '/components/FirebaseDatabase'
 const Room = () => {
   const router = useRouter()
   const { roomId } = router.query;
