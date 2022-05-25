@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import db, { write, read } from '/components/FirebaseDatabase'
 import styles from '../../styles/Home.module.css'
 
@@ -8,11 +8,16 @@ const Room = () => {
   const { roomId } = router.query
   const [chats, setChats] = useState([])
   const [chat, setChat] = useState('')
+  const refUl = useRef()
   useEffect(() => {
     read(`rooms/${roomId}/chats`, (data) => {
       setChats(() => [...Object.keys(data || {}).map(chatId => data[chatId])])
     })
   }, [db])
+
+  useEffect(() => {
+    refUl.current.scrollTop = refUl.current.scrollHeight
+  })
 
   const createChat = () => {
     write(`rooms/${roomId}/chats`, { chat })
@@ -28,7 +33,7 @@ const Room = () => {
   }
   return <>
     <p className={styles.title}>Room: {roomId}</p>
-    <ul className={styles.chatlist}>
+    <ul className={styles.chatlist} ref={refUl}>
       {
         chats && chats.map(({chat}, index) => <li key={index}>{ chat }</li>)
       }
