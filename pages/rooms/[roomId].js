@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react';
 import db, { write, read } from '/components/FirebaseDatabase'
+import styles from '../../styles/Home.module.css'
+
 const Room = () => {
   const router = useRouter()
   const { roomId } = router.query
@@ -25,14 +27,18 @@ const Room = () => {
     }
   }
   return <>
-    <p>Room: {roomId}</p>
-    <ul>
+    <p className={styles.title}>Room: {roomId}</p>
+    <ul className={styles.chatlist}>
       {
         chats && chats.map(({chat}, index) => <li key={index}>{ chat }</li>)
       }
     </ul>
-    <input type="text" onInput={handleInput} value={chat} onKeyPress={handleKeyPress}/>
-    <button onClick={createChat}>보내기</button>
+    <div className={styles.leftalign}>
+      <div className={styles.chat}>
+        <input className={styles.chatinput} type="text" onInput={handleInput} value={chat} onKeyPress={handleKeyPress}/>
+        <button className={styles.sendbtn} onClick={createChat}>보내기</button>
+      </div>
+    </div>
   </>
 }
 

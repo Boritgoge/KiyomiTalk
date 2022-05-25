@@ -25,7 +25,7 @@ const Login = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>KiyomiTalk</h1>
         <p className={styles.description}>
-          Let't go
+          Let&#39;s go
           <code className={styles.code}>Crazy Katsu!</code>
         </p>
         <div className={styles.login}>
