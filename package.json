@@ -2,7 +2,7 @@
   "name": "kiyomi-talk",
   "version": "0.1.0",
   "private": true,
-  "homeoage": "https://boritgoge.github.io/KiyomiTalk",
+  "homepage": "https://boritgoge.github.io/KiyomiTalk",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
