@@ -5,10 +5,10 @@
   "homeoage": "https://boritgoge.github.io/KiyomiTalk",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "git subtree push --prefix out origin gh-pages"
+    "deploy": "next build && next export && fsutil file createnew out/.nojekyll 0 && git subtree push --prefix out origin gh-pages"
   },
   "dependencies": {
     "firebase": "^9.8.1",
