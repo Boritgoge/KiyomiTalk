@@ -154,3 +154,11 @@
   background-color: #9e72adbc;
   color: #ffffff;
 }
+
+.chatlist {
+  list-style:none;
+  font-size: large;
+}
+.chatlist li {
+  padding: 10px;
+}

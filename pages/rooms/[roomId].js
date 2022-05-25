@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react';
 import db, { write, read } from '/components/FirebaseDatabase'
+import styles from '../../styles/Home.module.css'
+
 const Room = () => {
   const router = useRouter()
   const { roomId } = router.query
@@ -29,8 +31,8 @@ const Room = () => {
     }
   }
   return <>
-    <p>Room: {roomId}</p>
-    <ul>
+    <p className={styles.title}>Room: {roomId}</p>
+    <ul className={styles.chatlist}>
       {
         chats.map(({chat}) => <li>{ chat }</li>)
       }
