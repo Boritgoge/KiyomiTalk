@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
 import { write, read } from '/components/FirebaseDatabase'
-const Post = () => {
+const Room = () => {
   const router = useRouter()
   const { roomId } = router.query
   read('chats', (data) => {
     console.log(data);
   })
-  return <p>Post: {roomId}</p>
+  return <p>Room: {roomId}</p>
 }
 
-export default Post
+export default Room
