@@ -45,7 +45,7 @@ const Room = () => {
               className={styles.message}
               key={index}
             >
-              <div>
+              <div className={styles.thumbnail}>
                 <span></span>
               </div>
               <div>
