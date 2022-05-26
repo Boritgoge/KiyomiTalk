@@ -48,7 +48,7 @@ const Room = () => {
               key={index}
               style={test}
             >
-              <span
+              <strong
                 style={
                   {
                     "margin-right": "1rem",
@@ -56,7 +56,7 @@ const Room = () => {
                 }
               >
                 {nickname}
-              </span>
+              </strong>
               <span>
                 {message}
               </span>
