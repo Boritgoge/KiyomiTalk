@@ -1,19 +1,13 @@
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { setItem } from '/components/LocalStorage'
 import styles from '../../styles/Home.module.css'
-import React, { useState } from 'react';
 
 const Login = () => {
-  const [id, setId] = useState("");
+  const [nickname, setNickname] = useState('');
   const router = useRouter();
-  const submitId = () => {
-    if (!id) {
-      alert('ID를 입력해라!');
-      return;
-    }
-    alert('로그인 성공');
-    router.push(`/?id=${id}`);
-  }
+
   return(
     <div className={styles.container}>
       <Head>
@@ -29,17 +23,27 @@ const Login = () => {
           <code className={styles.code}>Crazy Katsu!</code>
         </p>
         <div className={styles.login}>
-          <p className={styles.text}>ID</p>
-          <input type="text" className={styles.input}
-            placeholder="아이디를 입력하세요."
-            onChange={e=>setId(e.target.value)}
-          >
+          <p className={styles.text}>닉네임</p>
+          <input 
+            type="text" 
+            className={styles.input}
+            placeholder="닉네임을 입력하세요."
+            onChange={({ target }) => setNickname(target.value)}
+          />
           
-          </input>  
-          <button type="button" className={styles.btnlogin}
-            onClick={submitId}
+          <button 
+            type="button" 
+            className={styles.btnlogin}
+            onClick={() => {
+              if (!nickname) {
+                alert('닉네임을 입력해라!');
+                return;
+              }
+              setItem('nickname', nickname)
+              router.push(`/rooms`);
+            }}
           >
-            login
+            로그인
           </button>
         </div>
       </main>

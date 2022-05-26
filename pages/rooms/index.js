@@ -4,17 +4,14 @@ import Link from 'next/link'
 const Rooms = () => {
   const [rooms, setRooms] = useState([])
   const [title, setTitle] = useState('')
+
+  const toRoomsArray = (data) => [...Object.keys(data || {}).map(roomId => ({roomId, ...data[roomId]}) )]
   useEffect(() => {
     read('rooms', (data) => {
-        setRooms(() => [...Object.keys(data || {}).map(roomId => ({roomId, ...data[roomId]}) )])
+      setRooms(toRoomsArray(data))
     })
   }, [db])
-  const handleTitle = function(e) {
-    setTitle(e.target.value)
-  }
-  const createRoom = () => {
-      write('rooms', { title })
-  }
+
   return (<>
     <p>방 목록</p>
     <ul>
@@ -29,8 +26,8 @@ const Rooms = () => {
         }
     </ul>
     <p>방 생성</p>
-    <input type="text" onInput={handleTitle}/>
-    <button type="button" onClick={createRoom}>방 만들기</button>
+    <input type="text" onInput={ ({target}) => { setTitle(target.value) } }/>
+    <button type="button" onClick={ () => { write('rooms', { title }) } }>방 만들기</button>
   </>)
 }
 

@@ -28,4 +28,13 @@ export function read(path, callback) {
     });
 }
 
+export function readOnce(path, callback) {
+    const _ref = ref(db, path);
+    return onValue(_ref, (snapshot) => {
+        callback(snapshot.val());
+    }, {
+        onlyOnce: true
+    });
+}
+
 export default db
