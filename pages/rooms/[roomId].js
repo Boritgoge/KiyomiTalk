@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import db, { write, read, readOnce } from '/components/FirebaseDatabase'
 import { getItem } from '/components/LocalStorage'
 import styles from './Room.module.scss'
-import Image from 'next/image';
+import moment from 'moment'
 
 const Room = () => {
   const router = useRouter()
@@ -40,8 +40,7 @@ const Room = () => {
     <p>{title}</p>
     <ul className={styles.messages} ref={refUl}>
       {
-        chats && chats.map(
-          ({ nickname, message, regdate }, index) => (
+        chats && chats.map(({ nickname, message, regdate }, index) => (
             <li 
               className={styles.message}
               key={index}
@@ -52,7 +51,7 @@ const Room = () => {
               <div>
                 <div className={styles.header}>
                   <span className={styles.nickname}>{nickname}</span>
-                  <span className={styles.regdate}>{regdate}</span>
+                  <span className={styles.regdate}>{moment(regdate).format('YYYY-MM-DD HH:mm:ss')}</span>
                 </div>
                 <div>
                   <span>{message}</span>
