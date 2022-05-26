@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect, useRef } from 'react';
 import db, { write, read, readOnce } from '/components/FirebaseDatabase'
 import { getItem } from '/components/LocalStorage'
-import styles from './Room.module.css'
+import styles from './Room.module.scss'
 
 const Room = () => {
   const router = useRouter()
@@ -33,11 +33,6 @@ const Room = () => {
     write(`rooms/${roomId}/chats`, { message, nickname })
     setMessage("")
   }
-  const test = {
-    "display": "flex",
-    "align-items": "flex-start",
-    "font-size": "12px",
-  };
   return <>
     <p>{title}</p>
     <ul className={styles.messages} ref={refUl}>
@@ -45,8 +40,8 @@ const Room = () => {
         chats && chats.map(
           ({ nickname, message }, index) => (
             <li 
+              className={styles.message}
               key={index}
-              style={test}
             >
               <strong
                 style={
