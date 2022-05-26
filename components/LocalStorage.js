@@ -1,6 +1,6 @@
 export function getItem(key) {
     if (typeof window !== "undefined") {
-        return JSON.parse(localStorage.getItem(key) || '{}');
+        return JSON.parse(localStorage.getItem(key) || null);
     }
     return null;
 }

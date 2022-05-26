@@ -22,8 +22,12 @@ const Room = () => {
       }
     })
     const user = getItem('cachedUser')
-    setNickname(`${user.displayName}(${user.email})`)
-    setThumbnail(user.photoURL)
+    if(user) {
+      setNickname(`${user.displayName}(${user.email})`)
+      setThumbnail(user.photoURL)
+    } else {
+      router.push('/login')
+    }
   }, [])
 
   useEffect(() => {

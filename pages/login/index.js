@@ -4,9 +4,10 @@ import Head from 'next/head'
 import { setItem } from '/components/LocalStorage'
 import styles from '../../styles/Home.module.css'
 import { signInWithGithub } from '../../components/FirebaseAuth'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 const Login = () => {
-  const [nickname, setNickname] = useState('');
   const router = useRouter();
   return(
     <div className={styles.container}>
@@ -23,38 +24,33 @@ const Login = () => {
           <code className={styles.code}>Crazy Katsu!</code>
         </p>
         <div className={styles.login}>
-          <p className={styles.text}>닉네임</p>
-          <input 
-            type="text" 
-            className={styles.input}
-            placeholder="닉네임을 입력하세요."
-            onChange={({ target }) => setNickname(target.value)}
-          />
-          
-          <button 
-            type="button" 
-            className={styles.btnlogin}
-            onClick={() => {
-              if (!nickname) {
-                alert('닉네임을 입력해라!');
-                return;
-              }
-              setItem('nickname', nickname)
-              router.push(`/rooms`);
+          <a 
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#fff",
+              padding: "5px 14px 5px 7px",
+              borderRadius: "7px",
+              cursor: "pointer",
+              boxShadow: "0px 0px 5px #000"
             }}
-          >
-            로그인
-          </button>
-          <button 
-            type="button" 
-            className={styles.btnlogin}
+
             onClick={async () => {
               const user = await signInWithGithub()
               setItem('cachedUser', user)
+              router.push('/rooms')
             }}
           >
-            test
-          </button>
+            <FontAwesomeIcon 
+              icon={faGithub} 
+              width="30" 
+              height="30" 
+              style={{
+                marginRight: "4px"
+              }}/>
+            <span>Github Login</span>
+          </a>
         </div>
       </main>
     </div>

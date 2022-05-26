@@ -1,9 +1,19 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
 import db, { write, read } from '/components/FirebaseDatabase'
+import { getItem } from '/components/LocalStorage'
 import Link from 'next/link'
 const Rooms = () => {
+  const router = useRouter()
   const [rooms, setRooms] = useState([])
   const [title, setTitle] = useState('')
+  
+  useEffect(() => {
+    const user = getItem('cachedUser')
+    if(!user) {
+      router.push('/login')
+    }
+  }, [])
 
   const toRoomsArray = (data) => [...Object.keys(data || {}).map(roomId => ({roomId, ...data[roomId]}) )]
   useEffect(() => {
