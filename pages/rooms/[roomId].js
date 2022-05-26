@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import db, { write, read, readOnce } from '/components/FirebaseDatabase'
 import { getItem } from '/components/LocalStorage'
 import styles from './Room.module.scss'
+import Image from 'next/image';
 
 const Room = () => {
   const router = useRouter()
@@ -15,7 +16,9 @@ const Room = () => {
 
   useEffect(() => {
     readOnce(`rooms/${roomId}`, (data) => {
-      setTitle(data.title)
+      if(data) {
+        setTitle(data.title)
+      }
     })
   }, [])
 
@@ -30,7 +33,7 @@ const Room = () => {
   })
 
   const sendMessage = () => {
-    write(`rooms/${roomId}/chats`, { message, nickname })
+    write(`rooms/${roomId}/chats`, { message, nickname, regdate: new Date() })
     setMessage("")
   }
   return <>
@@ -38,23 +41,23 @@ const Room = () => {
     <ul className={styles.messages} ref={refUl}>
       {
         chats && chats.map(
-          ({ nickname, message }, index) => (
+          ({ nickname, message, regdate }, index) => (
             <li 
               className={styles.message}
               key={index}
             >
-              <strong
-                style={
-                  {
-                    "margin-right": "1rem",
-                  }
-                }
-              >
-                {nickname}
-              </strong>
-              <span>
-                {message}
-              </span>
+              <div>
+                <span></span>
+              </div>
+              <div>
+                <div className={styles.header}>
+                  <span className={styles.nickname}>{nickname}</span>
+                  <span className={styles.regdate}>{regdate}</span>
+                </div>
+                <div>
+                  <span>{message}</span>
+                </div>
+              </div>
             </li>
           )
         )
