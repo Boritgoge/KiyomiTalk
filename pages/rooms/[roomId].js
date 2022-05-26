@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect, useRef } from 'react';
 import db, { write, read, readOnce } from '/components/FirebaseDatabase'
 import { getItem } from '/components/LocalStorage'
-import styles from '../../styles/Home.module.css'
+import styles from './Room.module.css'
 
 const Room = () => {
   const router = useRouter()
@@ -39,8 +39,8 @@ const Room = () => {
     "font-size": "12px",
   };
   return <>
-    <p className={styles.title}>{title}</p>
-    <ul className={styles.chatlist} ref={refUl}>
+    <p>{title}</p>
+    <ul className={styles.messages} ref={refUl}>
       {
         chats && chats.map(
           ({ nickname, message }, index) => (
@@ -65,11 +65,9 @@ const Room = () => {
         )
       }
     </ul>
-    <div className={styles.leftalign}>
-      <div className={styles.chat}>
+    <div>
         <input 
           type="text" 
-          className={styles.chatinput} 
 
           onInput={({ target }) => { 
             setMessage(target.value) 
@@ -84,12 +82,10 @@ const Room = () => {
           value={message} 
         />
         <button 
-          className={styles.sendbtn} 
           onClick={() => {
             sendMessage()
           }}
         >보내기</button>
-      </div>
     </div>
   </>
 }
