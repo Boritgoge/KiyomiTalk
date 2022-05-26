@@ -4,6 +4,7 @@ import db, { write, read, readOnce } from '/components/FirebaseDatabase'
 import { getItem } from '/components/LocalStorage'
 import styles from './Room.module.scss'
 import moment from 'moment'
+import Image from 'next/image'
 
 const Room = () => {
   const router = useRouter()
@@ -11,15 +12,18 @@ const Room = () => {
   const [title, setTitle] = useState('')
   const [chats, setChats] = useState([])
   const [message, setMessage] = useState('')
-  const [nickname, setNickname] = useState(getItem('nickname'))
+  const [nickname, setNickname] = useState('')
+  const [thumbnail, setThumbnail] = useState('')
   const refUl = useRef()
-
   useEffect(() => {
     readOnce(`rooms/${roomId}`, (data) => {
       if(data) {
         setTitle(data.title)
       }
     })
+    const user = getItem('cachedUser')
+    setNickname(`${user.displayName}(${user.email})`)
+    setThumbnail(user.photoURL)
   }, [])
 
   useEffect(() => {
@@ -33,20 +37,33 @@ const Room = () => {
   })
 
   const sendMessage = () => {
-    write(`rooms/${roomId}/chats`, { message, nickname, regdate: new Date() })
+    write(`rooms/${roomId}/chats`, { message, nickname, regdate: new Date(), thumbnail })
     setMessage("")
   }
   return <>
     <p>{title}</p>
     <ul className={styles.messages} ref={refUl}>
       {
-        chats && chats.map(({ nickname, message, regdate }, index) => (
+        chats && chats.map(({ nickname, message, regdate, thumbnail }, index) => (
             <li 
               className={styles.message}
               key={index}
             >
               <div className={styles.thumbnail}>
-                <span></span>
+                <span>
+                  {
+                  thumbnail && <Image
+                      src={thumbnail}
+                      alt="Picture of the author"
+                      width={50}
+                      height={50}
+                      // width={500} automatically provided
+                      // height={500} automatically provided
+                      // blurDataURL="data:..." automatically provided
+                      // placeholder="blur" // Optional blur-up while loading
+                    />
+                  }
+                </span>
               </div>
               <div>
                 <div className={styles.header}>

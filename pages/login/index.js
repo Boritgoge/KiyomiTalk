@@ -3,11 +3,11 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { setItem } from '/components/LocalStorage'
 import styles from '../../styles/Home.module.css'
+import { signInWithGithub } from '../../components/FirebaseAuth'
 
 const Login = () => {
   const [nickname, setNickname] = useState('');
   const router = useRouter();
-
   return(
     <div className={styles.container}>
       <Head>
@@ -44,6 +44,16 @@ const Login = () => {
             }}
           >
             로그인
+          </button>
+          <button 
+            type="button" 
+            className={styles.btnlogin}
+            onClick={async () => {
+              const user = await signInWithGithub()
+              setItem('cachedUser', user)
+            }}
+          >
+            test
           </button>
         </div>
       </main>
