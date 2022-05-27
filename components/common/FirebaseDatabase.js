@@ -5,8 +5,8 @@ const db = getDatabase(app);
 
 export function write(path, data) {
     const key = push(child(ref(db), path)).key;
-    const updates = { key };
-    updates[`/${path}/${key}`] = data;
+    const updates = {};
+    updates[`/${path}/${key}`] = { key, ...data};
     update(ref(db), updates);
 }
 
