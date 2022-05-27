@@ -50,12 +50,12 @@ const Room = () => {
               <div className={styles.thumbnail}>
                 <span>
                   {
-                  // thumbnail && <Image
-                  //     src={thumbnail}
-                  //     alt="Picture of the author"
-                  //     width={50}
-                  //     height={50}
-                  //   />
+                  thumbnail && <Image
+                      src={thumbnail}
+                      alt="Picture of the author"
+                      width={50}
+                      height={50}
+                    />
                   }
                 </span>
               </div>

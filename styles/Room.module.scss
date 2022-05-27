@@ -1,5 +1,7 @@
+$backgroundColor: #252526;
+
 .messages {
-    background-color: #252526;
+    background-color: $backgroundColor;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
