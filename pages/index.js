@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import styles from '../styles/Home.module.scss'
 import RoomList from '../components/RoomList'
 import Room from '../components/Room'

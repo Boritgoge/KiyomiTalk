@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import db, { write, read, toListWithKey } from '/components/common/FirebaseDatabase'
 import { roomIdState, roomTitleState } from '../recoil/atoms';
 import { useRecoilState } from 'recoil';
+import styles from '../styles/RoomList.module.scss'
 
 const RoomList = () => {
   const [rooms, setRooms] = useState([])
@@ -16,23 +17,22 @@ const RoomList = () => {
   }, [db])
 
   return (<>
-    <p>방 목록</p>
-    <ul>
+    <header className={styles.header}>방목록</header>
+    <ul className={styles.rooms}>
         {
-            rooms && rooms.map( ({key, title}) => 
-            <li 
-              key={key}
-              onClick={() => {
-                setRoomId(key)
-                setRoomTitle(title)
-              }}
-            >
+          rooms && rooms.map( ({key, title}) => 
+          <li 
+            key={key}
+            onClick={() => {
+              setRoomId(key)
+              setRoomTitle(title)
+            }}
+          >
               <a>{ title }</a>
             </li>
             )
-        }
+          }
     </ul>
-    <p>방 생성</p>
     <input type="text" onInput={ ({target}) => { setTitle(target.value) } }/>
     <button type="button" onClick={ () => { write('rooms', { title }) } }>방 만들기</button>
   </>)

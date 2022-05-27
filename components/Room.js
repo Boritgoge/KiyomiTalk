@@ -38,8 +38,7 @@ const Room = () => {
     setMessage("")
   }
   return <>
-    <header></header>
-    <p>{roomTitle}{roomId}</p>
+    <header className={styles.header}>{roomTitle}</header>
     <ul className={styles.messages} ref={refUl}>
       {
         chats && chats.map(({ nickname, message, regdate, thumbnail }, index) => (

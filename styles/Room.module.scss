@@ -1,15 +1,14 @@
-$backgroundColor: #252526;
-
+.header {
+    margin-top: 10px;
+}
 .messages {
-    background-color: $backgroundColor;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    overflow-y: auto;
     height: 350px;
     max-height: 350px;
-    overflow-y: scroll;
-    border: 1px solid rgba(0, 0, 0, 0.5);
     color: white;
     width: 100%;
     padding: 0;
@@ -20,8 +19,7 @@ $backgroundColor: #252526;
         align-items: flex-start;
         justify-content: flex-start;
         font-size: 12px;
-        padding: 30px 20px 30px 10px;
-        border-top: 0.5px solid rgba(255, 255, 255, 0.3);
+        padding: 30px 20px 0 10px;
         .thumbnail {
             display: flex;
             align-items: center;
@@ -52,4 +50,18 @@ $backgroundColor: #252526;
             }
         }
     }
+}
+.messages::-webkit-scrollbar {
+    width: 8px;
+}
+.messages::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.messages::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 1px white;
 }

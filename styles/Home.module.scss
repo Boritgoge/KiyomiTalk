@@ -1,11 +1,20 @@
+$font: #858585;
+$roomColor: #252526;
+$messagesColor: #1e1e1e;
 .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    color: $font;
     header {
-        width: 30%;
-        margin: 0 10px;
+        width: 120px;
+        background-color: $roomColor;        
+        padding-left: 10px;
+        display: flex;
+        flex-direction: column;
+
     }
     main {
         width: 100%;
+        background-color: $messagesColor;
     }
 }
