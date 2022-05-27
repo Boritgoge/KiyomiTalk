@@ -26,4 +26,12 @@ export function readOnce(path, callback) {
     });
 }
 
+export function toList(data) {
+    return Object.keys(data || {}).map(key => data[key]);
+}
+
+export function toListWithKey(data) {
+    return Object.keys(data || {}).map(key => ({ key, ...data[key] }));
+}
+
 export default db

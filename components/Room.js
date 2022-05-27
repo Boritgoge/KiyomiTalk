@@ -1,51 +1,45 @@
-import { useRouter } from 'next/router'
 import { useState, useEffect, useRef } from 'react';
-import db, { write, read, readOnce } from '/components/common/FirebaseDatabase'
-import { getItem } from '/components/common/LocalStorage'
-import styles from './Room.module.scss'
+import { useRecoilValue } from 'recoil';
+import { roomIdState, roomTitleState, userState } from '../recoil/atoms';
+import db, { write, read, toList } from '/components/common/FirebaseDatabase'
+import styles from '../styles/Room.module.scss'
 import moment from 'moment'
 import Image from 'next/image'
 
 const Room = () => {
-  const router = useRouter()
-  const { roomId } = router.query
-  const [title, setTitle] = useState('')
   const [chats, setChats] = useState([])
   const [message, setMessage] = useState('')
-  const [nickname, setNickname] = useState('')
-  const [thumbnail, setThumbnail] = useState('')
+  const roomId = useRecoilValue(roomIdState)
+  const roomTitle = useRecoilValue(roomTitleState)
+  const loginUser = useRecoilValue(userState)
   const refUl = useRef()
-  useEffect(() => {
-    readOnce(`rooms/${roomId}`, (data) => {
-      if(data) {
-        setTitle(data.title)
-      }
-    })
-    const user = getItem('cachedUser')
-    if(user) {
-      setNickname(`${user.displayName}(${user.email})`)
-      setThumbnail(user.photoURL)
-    } else {
-      router.push('/login')
-    }
-  }, [])
 
   useEffect(() => {
-    read(`rooms/${roomId}/chats`, (data) => {
-      setChats(() => [...Object.keys(data || {}).map(chatId => data[chatId])])
+    const unsubscribe = read(`rooms/${roomId}`, ({ key, chats }) => {
+      if(roomId !== key) return;
+      setChats(toList(chats))
     })
-  }, [db])
+    return () => {
+      unsubscribe()
+    }
+  }, [db, roomId])
 
   useEffect(() => {
     refUl.current.scrollTop = refUl.current.scrollHeight
   })
 
   const sendMessage = () => {
-    write(`rooms/${roomId}/chats`, { message, nickname, regdate: new Date(), thumbnail })
+    write(`rooms/${roomId}/chats`, { 
+      message, 
+      thumbnail: loginUser.photoURL,
+      nickname: loginUser.displayName, 
+      regdate: new Date(), 
+    })
     setMessage("")
   }
   return <>
-    <p>{title}</p>
+    <header></header>
+    <p>{roomTitle}{roomId}</p>
     <ul className={styles.messages} ref={refUl}>
       {
         chats && chats.map(({ nickname, message, regdate, thumbnail }, index) => (
@@ -56,12 +50,12 @@ const Room = () => {
               <div className={styles.thumbnail}>
                 <span>
                   {
-                  thumbnail && <Image
-                      src={thumbnail}
-                      alt="Picture of the author"
-                      width={50}
-                      height={50}
-                    />
+                  // thumbnail && <Image
+                  //     src={thumbnail}
+                  //     alt="Picture of the author"
+                  //     width={50}
+                  //     height={50}
+                  //   />
                   }
                 </span>
               </div>

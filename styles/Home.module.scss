@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    header {
+        width: 30%;
+        margin: 0 10px;
+    }
+    main {
+        width: 100%;
+    }
+}

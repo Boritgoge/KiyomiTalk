@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import { setItem } from '/components/LocalStorage'
-import styles from '../../styles/Home.module.css'
-import { signInWithGithub } from '../../components/FirebaseAuth'
+import { setItem } from '/components/common/LocalStorage'
+import styles from '../../styles/Login.module.css'
+import { signInWithGithub } from '../../components/common/FirebaseAuth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
+import { userState } from '../../recoil/atoms'
+import { useRecoilState } from 'recoil'
+
 
 const Login = () => {
   const router = useRouter();
+  const [_, setUser] =  useRecoilState(userState)
   return(
     <div className={styles.container}>
       <Head>
@@ -39,6 +43,7 @@ const Login = () => {
             onClick={async () => {
               const user = await signInWithGithub()
               setItem('cachedUser', user)
+              setUser(user)
               router.push('/rooms')
             }}
           >

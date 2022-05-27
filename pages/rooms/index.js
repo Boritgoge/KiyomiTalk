@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import db, { write, read } from '/components/FirebaseDatabase'
-import { getItem } from '/components/LocalStorage'
+import db, { write, read } from '/components/common/FirebaseDatabase'
+import { getItem } from '/components/common/LocalStorage'
 import Link from 'next/link'
 const Rooms = () => {
   const router = useRouter()
