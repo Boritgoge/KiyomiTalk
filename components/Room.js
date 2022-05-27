@@ -72,27 +72,11 @@ const Room = () => {
         )
       }
     </ul>
-    <div>
-        <input 
-          type="text" 
-
-          onInput={({ target }) => { 
-            setMessage(target.value) 
-          }} 
-
-          onKeyPress={({ key }) => {
-            if(key === 'Enter') {
-              sendMessage()
-            }
-          }}
-
-          value={message} 
+    <div className={styles.message_send}>
+        <input type="text" value={message}
+          onInput={({ target }) => { setMessage(target.value) }} 
+          onKeyPress={({ key }) => { key === 'Enter' && sendMessage() }}
         />
-        <button 
-          onClick={() => {
-            sendMessage()
-          }}
-        >보내기</button>
     </div>
   </>
 }
