@@ -44,7 +44,7 @@ const Login = () => {
               const user = await signInWithGithub()
               setItem('cachedUser', user)
               setUser(user)
-              router.push('/rooms')
+              router.push('/')
             }}
           >
             <FontAwesomeIcon 
