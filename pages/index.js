@@ -5,10 +5,10 @@ import Room from '../components/Room'
 export default function Home() {
   return <>
     <div className={styles.container}>
-      <header>
+      <header className={styles.header}>
         <RoomList/>
       </header>
-      <main>
+      <main className={styles.main}>
         <Room/>
       </main>
     </div>

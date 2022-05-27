@@ -5,16 +5,14 @@ $messagesColor: #1e1e1e;
     display: flex;
     justify-content: flex-start;
     color: $font;
-    header {
-        width: 120px;
-        background-color: $roomColor;        
-        padding-left: 10px;
-        display: flex;
-        flex-direction: column;
-
-    }
-    main {
-        width: 100%;
-        background-color: $messagesColor;
-    }
+}
+.header {
+    width: 120px;
+    background-color: $roomColor;        
+    display: flex;
+    flex-direction: column;
+}
+.main {
+    width: 100%;
+    background-color: $messagesColor;
 }
