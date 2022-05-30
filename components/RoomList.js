@@ -56,6 +56,9 @@ const RoomList = () => {
                 }
               }
             }
+            onBlur={()=> {
+              setInputToggle(false)
+            }}
             ref={inputRef}
           />
         }
