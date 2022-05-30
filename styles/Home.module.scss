@@ -13,7 +13,9 @@ $messagesColor: #1e1e1e;
     display: flex;
     justify-content: flex-start;
     color: $font;
+    width: 100vw;
     height: 100vh;
+    overflow: hidden;
     .channels {
         // width: 75px;
         width: 0px;
@@ -28,7 +30,7 @@ $messagesColor: #1e1e1e;
         flex-direction: column;
     }
     .main {
-        width: 100%;
+        width: 100vw;
         background-color: $messagesColor;
     }
 }

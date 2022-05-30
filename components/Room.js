@@ -44,7 +44,7 @@ const Room = () => {
   }
 
   
-  const uploadImage = async (file) => {
+  const sendImage = async (file) => {
     if(!file || file.type !== 'image/jpeg') return;
     const res = await uploadFile(file);
     const imagePath = await getDownloadURL(res.ref);
@@ -108,6 +108,7 @@ const Room = () => {
             if(clipboardData.items.length > 0) {
               const [ item ] = clipboardData.items;
               const file = item.getAsFile();
+              sendImage(file);
             }
           }}
         />
@@ -115,7 +116,7 @@ const Room = () => {
           icon={faImage} 
           className={styles.image_upload} 
           onClick={()=> {
-            refFile.current.click()
+            refFile.current.click();
           }}
         />
         <input 
@@ -124,7 +125,7 @@ const Room = () => {
           ref={refFile}
           accept="image/jpeg"
           onChange={({target}) => {
-            uploadImage(target.files[0])
+            sendImage(target.files[0]);
           }}
         />
     </div>
