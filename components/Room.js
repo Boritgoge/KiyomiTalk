@@ -55,6 +55,7 @@ const Room = () => {
       nickname: loginUser.displayName, 
       regdate: new Date(), 
     })
+    target.value = '';
   }
 
   return <>
@@ -103,6 +104,9 @@ const Room = () => {
         <input type="text" value={message}
           onInput={({ target }) => { setMessage(target.value) }} 
           onKeyPress={({ key }) => { key === 'Enter' && sendMessage() }}
+          onPaste={({ clipboardData }) => {
+            console.log(clipboardData)
+          }}
         />
         <FontAwesomeIcon icon={faImage} className={styles.image_upload} onClick={()=> {
           refFile.current.click()
