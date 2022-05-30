@@ -44,8 +44,8 @@ const Room = () => {
   }
 
   
-  const uploadImage = async (file) => {    
-    console.log(file);
+  const uploadImage = async (file) => {
+    if(!file || file.type !== 'image/jpeg') return;
     const res = await uploadFile(file);
     const imagePath = await getDownloadURL(res.ref);
     write(`rooms/${roomId}/chats`, { 
@@ -108,7 +108,6 @@ const Room = () => {
             if(clipboardData.items.length > 0) {
               const [ item ] = clipboardData.items;
               const file = item.getAsFile();
-              uploadImage(file);
             }
           }}
         />
