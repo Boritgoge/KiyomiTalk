@@ -51,6 +51,10 @@
                 color: silver;
             }
         }
+        img {
+            width: 100px;
+            height: 100px;
+        }
     }
     &::-webkit-scrollbar {
         width: 8px;
@@ -69,6 +73,8 @@
 }
 
 .message_send {
+    position: absolute;
+    width: 350px;
     padding: 0 10px;
     input {
         width: 100%;
@@ -78,5 +84,16 @@
         background-color: grey;
         color: white;
         border-radius: 15px;
+    }
+    .image_upload {
+        position: relative;
+        top:-26px;
+        left: 290px;
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+            color: #2f3542;
+        }
     }
 }
