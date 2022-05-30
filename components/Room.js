@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { roomIdState, roomTitleState, userState } from '../recoil/atoms';
 import db, { write, read, toList } from '/components/common/FirebaseDatabase'
-import { uploadImage } from '/components/common/FirebaseStore'
+import { uploadFile } from '/components/common/FirebaseStore'
 import { getDownloadURL } from "firebase/storage";
 import styles from '../styles/Room.module.scss'
 import moment from 'moment'
@@ -44,9 +44,9 @@ const Room = () => {
   }
 
   
-  const upload = async ({target}) => {
-    const file = target.files[0];
-    const res = await uploadImage(file);
+  const uploadImage = async (file) => {    
+    console.log(file);
+    const res = await uploadFile(file);
     const imagePath = await getDownloadURL(res.ref);
     write(`rooms/${roomId}/chats`, { 
       message: "", 
@@ -55,7 +55,7 @@ const Room = () => {
       nickname: loginUser.displayName, 
       regdate: new Date(), 
     })
-    target.value = '';
+    refFile.current.value = '';
   }
 
   return <>
@@ -105,17 +105,28 @@ const Room = () => {
           onInput={({ target }) => { setMessage(target.value) }} 
           onKeyPress={({ key }) => { key === 'Enter' && sendMessage() }}
           onPaste={({ clipboardData }) => {
-            console.log(clipboardData)
+            if(clipboardData.items.length > 0) {
+              const [ item ] = clipboardData.items;
+              const file = item.getAsFile();
+              uploadImage(file);
+            }
           }}
         />
-        <FontAwesomeIcon icon={faImage} className={styles.image_upload} onClick={()=> {
-          refFile.current.click()
-        }}/>
+        <FontAwesomeIcon 
+          icon={faImage} 
+          className={styles.image_upload} 
+          onClick={()=> {
+            refFile.current.click()
+          }}
+        />
         <input 
           type="file" 
           style={{ display: 'none' }} 
           ref={refFile}
-          onChange={upload}
+          accept="image/jpeg"
+          onChange={({target}) => {
+            uploadImage(target.files[0])
+          }}
         />
     </div>
   </>
