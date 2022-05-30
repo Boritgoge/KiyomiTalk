@@ -1,18 +1,33 @@
 $font: #858585;
+$channelColor: #0d0d0d;
 $roomColor: #252526;
 $messagesColor: #1e1e1e;
+.titlebar {
+    background-color: #2f3542;
+    color: #858585;
+    font-size: 0.7em;
+    font-weight: bold;
+    padding: 0.5em 0.5em 0.5em 1em;
+}
 .container {
     display: flex;
     justify-content: flex-start;
     color: $font;
-}
-.header {
-    width: 120px;
-    background-color: $roomColor;        
-    display: flex;
-    flex-direction: column;
-}
-.main {
-    width: 100%;
-    background-color: $messagesColor;
+    height: 100vh;
+    .channels {
+        width: 75px;
+        background-color: $channelColor;        
+        display: flex;
+        flex-direction: column;
+    }
+    .rooms {
+        width: 120px;
+        background-color: $roomColor;        
+        display: flex;
+        flex-direction: column;
+    }
+    .main {
+        width: 100%;
+        background-color: $messagesColor;
+    }
 }

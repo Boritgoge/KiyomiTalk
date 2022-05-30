@@ -4,8 +4,10 @@ import Room from '../components/Room'
 
 export default function Home() {
   return <>
+    <div className={styles.titlebar}>KiyomiTalk</div>
     <div className={styles.container}>
-      <header className={styles.header}>
+      <div className={styles.channels}></div>
+      <header className={styles.rooms}>
         <RoomList/>
       </header>
       <main className={styles.main}>
