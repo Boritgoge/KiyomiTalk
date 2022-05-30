@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import db, { write, read, toListWithKey } from '/components/common/FirebaseDatabase'
 import { roomIdState, roomTitleState } from '../recoil/atoms';
 import { useRecoilState } from 'recoil';
 import styles from '../styles/RoomList.module.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 
 const RoomList = () => {
   const [rooms, setRooms] = useState([])
-  const [title, setTitle] = useState('')
+  const [inputToggle, setInputToggle] = useState(false)
+  const inputRef = useRef(null)
   const [roomId, setRoomId] = useRecoilState(roomIdState)
   const [roomTitle, setRoomTitle] = useRecoilState(roomTitleState)
 
@@ -15,6 +18,10 @@ const RoomList = () => {
       setRooms(toListWithKey(data))
     })
   }, [db])
+
+  useEffect(() => {
+      inputToggle && inputRef.current.focus()
+  }, [inputToggle])
 
   return (<>
     <header className={styles.header}>방목록</header>
@@ -28,13 +35,42 @@ const RoomList = () => {
               setRoomTitle(title)
             }}
           >
-              <a>{ title }</a>
-            </li>
-            )
-          }
+            <a>{ title }</a>
+          </li>
+          )
+        }
+        {
+          inputToggle && 
+          <input 
+            type="text"
+            className={styles.input}
+            onKeyPress={ ({key}) => {
+                if(key === 'Enter') {
+                  if(inputRef.current.value) {
+                    write('rooms', { 
+                      title: inputRef.current.value
+                    })
+                    inputRef.current.value = ''
+                  }
+                  setInputToggle(false)
+                }
+              }
+            }
+            ref={inputRef}
+          />
+        }
     </ul>
-    <input type="text" onInput={ ({target}) => { setTitle(target.value) } }/>
-    <button type="button" onClick={ () => { write('rooms', { title }) } }>방 만들기</button>
+    <div className={styles.btnGroup}>
+      <button 
+        className={styles.btnAdd}
+        href="#none"
+        onClick={ () => { 
+          setInputToggle(true)
+        } }
+      >
+        <FontAwesomeIcon icon={faPlus} size="1x" color="#3F975A"/>
+      </button>
+    </div>
   </>)
 }
 

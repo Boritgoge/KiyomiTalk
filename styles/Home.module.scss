@@ -15,13 +15,14 @@ $messagesColor: #1e1e1e;
     color: $font;
     height: 100vh;
     .channels {
-        width: 75px;
+        // width: 75px;
+        width: 0px;
         background-color: $channelColor;        
         display: flex;
         flex-direction: column;
     }
     .rooms {
-        width: 120px;
+        width: 150px;
         background-color: $roomColor;        
         display: flex;
         flex-direction: column;

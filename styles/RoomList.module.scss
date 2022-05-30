@@ -8,12 +8,10 @@
     justify-content: flex-start;
     align-items: flex-start;
     overflow-y: auto;
-    height: 350px;
-    max-height: 350px;
-    width: 100%;
+    max-height: calc(95vh - 31%);
+    width: 150px;
     padding: 0;
     li {
-        width: 100%;
         font-size: 12px;
         padding-left: 17px;
         padding-top: 4px;
@@ -23,18 +21,53 @@
             background-color: #2f3542;
         }
     }
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #2f3542;
+        border-radius: 10px;
+        background-clip: padding-box;
+        border: 2px solid transparent;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: grey;
+        border-radius: 10px;
+        box-shadow: inset 0px 0px 1px white;
+    }
+
+    .input {
+        width: 125px;
+        height: 19px;
+        margin-top: 15px;
+        margin-left: 15px;
+        outline: none;
+        background-color: grey;
+        border: 0;
+        border-radius: 2px;
+        color: #2f3542;
+    }
 }
-.rooms::-webkit-scrollbar {
-    width: 8px;
-}
-.rooms::-webkit-scrollbar-thumb {
-    background-color: #2f3542;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-}
-.rooms::-webkit-scrollbar-track {
-    background-color: grey;
-    border-radius: 10px;
-    box-shadow: inset 0px 0px 1px white;
+
+.btnGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .btnAdd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2.5em;
+        height: 2.5em;
+        border-color: transparent;
+        border-radius: 50%;
+        background-color: #35383D;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #2f3542;
+        }
+    }
 }
