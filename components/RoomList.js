@@ -29,7 +29,10 @@ const RoomList = () => {
     <ul className={styles.rooms}>
         {
           rooms && rooms.map( ({key, title, locked}) => 
-          <li 
+          <li
+            className={
+              key === roomId && styles.selected
+            }
             key={key}
             onClick={() => {
               setRoomId(key)
