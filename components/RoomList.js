@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import db, { write, read, toListWithKey } from '/components/common/FirebaseDatabase'
-import { roomIdState, roomTitleState } from '../recoil/atoms';
-import { useRecoilState } from 'recoil';
+import { roomIdState, roomTitleState, userState } from '../recoil/atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styles from '../styles/RoomList.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faPlus, faLock } from "@fortawesome/free-solid-svg-icons"
 
 const RoomList = () => {
   const [rooms, setRooms] = useState([])
@@ -12,6 +12,7 @@ const RoomList = () => {
   const inputRef = useRef(null)
   const [roomId, setRoomId] = useRecoilState(roomIdState)
   const [roomTitle, setRoomTitle] = useRecoilState(roomTitleState)
+  const loginUser = useRecoilValue(userState)
 
   useEffect(() => {
     read('rooms', (data) => {
@@ -27,7 +28,7 @@ const RoomList = () => {
     <header className={styles.header}>방목록</header>
     <ul className={styles.rooms}>
         {
-          rooms && rooms.map( ({key, title}) => 
+          rooms && rooms.map( ({key, title, locked}) => 
           <li 
             key={key}
             onClick={() => {
@@ -35,32 +36,40 @@ const RoomList = () => {
               setRoomTitle(title)
             }}
           >
-            <a>{ title }</a>
+            <div className={styles.cols}>
+              <a>{ title }</a>
+              {locked && <FontAwesomeIcon icon={faLock}/>}
+            </div>
           </li>
           )
         }
         {
           inputToggle && 
-          <input 
-            type="text"
-            className={styles.input}
-            onKeyPress={ ({key}) => {
+            <input 
+              type="text"
+              className={styles.input}
+              onKeyPress={ ({key}) => {
                 if(key === 'Enter') {
                   if(inputRef.current.value) {
                     write('rooms', { 
-                      title: inputRef.current.value
+                      title: inputRef.current.value,
+                      locked: false,
+                      allowlist: {
+                        [loginUser.uid]: true
+                      },
+                      creator: loginUser.uid,
+                      created: new Date(),
                     })
-                    inputRef.current.value = ''
+                      inputRef.current.value = ''
                   }
                   setInputToggle(false)
                 }
-              }
-            }
-            onBlur={()=> {
-              setInputToggle(false)
-            }}
-            ref={inputRef}
-          />
+              }}
+              onBlur={()=> {
+                setInputToggle(false)
+              }}
+              ref={inputRef}
+            />
         }
     </ul>
     <div className={styles.btnGroup}>

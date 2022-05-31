@@ -3,6 +3,14 @@ import { getDatabase, ref, update, onValue, push, child } from "firebase/databas
 
 const db = getDatabase(app);
 
+
+export function read(path, callback) {
+    const _ref = ref(db, path);
+    return onValue(_ref, (snapshot) => {
+        callback(snapshot.val());
+    });
+}
+
 export function write(path, data) {
     const key = push(child(ref(db), path)).key;
     const updates = {};
@@ -10,11 +18,11 @@ export function write(path, data) {
     update(ref(db), updates);
 }
 
-export function read(path, callback) {
-    const _ref = ref(db, path);
-    return onValue(_ref, (snapshot) => {
-        callback(snapshot.val());
-    });
+export function updateByPath(path, data) {
+    const key = push(child(ref(db), path)).key;
+    const updates = {};
+    updates[`${path}`] = data;
+    update(ref(db), updates);
 }
 
 export function readOnce(path, callback) {

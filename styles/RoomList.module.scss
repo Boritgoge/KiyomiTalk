@@ -21,6 +21,12 @@
         &:hover {
             background-color: #2f3542;
         }
+
+        .cols {
+            display: flex;
+            justify-content: space-between;
+            margin-right: 12px;
+        }
     }
 
     &::-webkit-scrollbar {
