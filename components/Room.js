@@ -100,7 +100,11 @@ const Room = () => {
                     : <FontAwesomeIcon icon={faLockOpen} onClick={toggleLock}/>
                   }
                   <FontAwesomeIcon icon={faShareFromSquare} 
-                    onClick={copyToClipboard(`${window.location.origin}/invite/${roomId}`)}/>
+                    onClick={
+                      ()=>{
+                        copyToClipboard(`${window.location.origin}/invite/${roomId}`)
+                      }
+                    }/>
                 </>
               }
             </div>
