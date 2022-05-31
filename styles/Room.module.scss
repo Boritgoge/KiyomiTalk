@@ -114,3 +114,14 @@
         }
     }
 }
+.lockScreen {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    svg {
+        font-size: 100px;
+        margin-bottom: 10px;
+    }
+}

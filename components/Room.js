@@ -76,15 +76,9 @@ const Room = () => {
     { 
       locked && !isAllowed()
         ?
-        <div>
-          <span>Locked!</span>
-          <span>Locked!</span>
-          <span>Locked!</span>
-          <span>Locked!</span>
-          <span>Locked!</span>
-          <span>Locked!</span>
-          <span>Locked!</span>
-          <span>Locked!</span>
+        <div className={styles.lockScreen}>
+          <FontAwesomeIcon icon={faLock} />
+          <span>비공개</span>
         </div>
         : 
         <>
