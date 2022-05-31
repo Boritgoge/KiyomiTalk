@@ -9,6 +9,7 @@ import moment from 'moment'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage, faLock, faLockOpen, faShareFromSquare } from "@fortawesome/free-solid-svg-icons"
+import { copyToClipboard } from './common/CommonUtil';
 
 const Room = () => {
   const [chats, setChats] = useState([])
@@ -68,9 +69,12 @@ const Room = () => {
   const toggleLock = async () => {
     updateByPath(`rooms/${roomId}/locked`, !locked)
   }
+  const isAllowed = () => {
+    return creator === loginUser.uid || allowlist[loginUser.uid]
+  }
   return <>
     { 
-      locked && !allowlist[loginUser.uid]
+      locked && !isAllowed()
         ?
         <div>
           <span>Locked!</span>
@@ -95,7 +99,8 @@ const Room = () => {
                     ? <FontAwesomeIcon icon={faLock} onClick={toggleLock}/>
                     : <FontAwesomeIcon icon={faLockOpen} onClick={toggleLock}/>
                   }
-                  <FontAwesomeIcon icon={faShareFromSquare}/>
+                  <FontAwesomeIcon icon={faShareFromSquare} 
+                    onClick={copyToClipboard(`${window.location.origin}/invite/${roomId}`)}/>
                 </>
               }
             </div>
