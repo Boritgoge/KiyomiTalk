@@ -13,6 +13,7 @@ import { faImage, faLock, faLockOpen, faShareFromSquare } from "@fortawesome/fre
 const Room = () => {
   const [chats, setChats] = useState([])
   const [message, setMessage] = useState('')
+  const [creator, setCreator] = useState('')
   const [allowlist, setAllowlist] = useState([])
   const [locked, setLocked] = useState(false)
   const roomId = useRecoilValue(roomIdState)
@@ -23,9 +24,10 @@ const Room = () => {
   const refFile = useRef()
 
   useEffect(() => {
-    const unsubscribe = read(`rooms/${roomId}`, ({ key, locked, allowlist, chats }) => {
+    const unsubscribe = read(`rooms/${roomId}`, ({ key, locked, creator, allowlist, chats }) => {
       if(roomId !== key) return;
       setLocked(locked)
+      setCreator(creator)
       setAllowlist(allowlist)
       if(locked && !allowlist[loginUser.uid]) return;
       setChats(toList(chats))
@@ -86,11 +88,16 @@ const Room = () => {
             <span>{roomTitle}</span>
             <div className={styles.btnGroup}>
               {
-              locked 
-                ? <FontAwesomeIcon icon={faLock} onClick={toggleLock}/>
-                : <FontAwesomeIcon icon={faLockOpen} onClick={toggleLock}/>
+                creator === loginUser.uid && 
+                <>
+                  {
+                  locked 
+                    ? <FontAwesomeIcon icon={faLock} onClick={toggleLock}/>
+                    : <FontAwesomeIcon icon={faLockOpen} onClick={toggleLock}/>
+                  }
+                  <FontAwesomeIcon icon={faShareFromSquare}/>
+                </>
               }
-              <FontAwesomeIcon icon={faShareFromSquare}/>
             </div>
           </header>
           <ul className={styles.messages} ref={refUl}>
