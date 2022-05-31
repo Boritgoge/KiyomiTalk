@@ -36,7 +36,7 @@ const Room = () => {
   }, [db, roomId])
 
   useEffect(() => {
-    if(locked) return;
+    if(locked && !allowlist[loginUser.uid]) return;
     refUl.current.scrollTop = refUl.current.scrollHeight
   })
 
@@ -68,107 +68,101 @@ const Room = () => {
   }
   return <>
     { 
-      locked && !allowlist[loginUser.uid] && 
-      <div>
-        <span>Locked!</span>
-        <span>Locked!</span>
-        <span>Locked!</span>
-        <span>Locked!</span>
-        <span>Locked!</span>
-        <span>Locked!</span>
-        <span>Locked!</span>
-        <span>Locked!</span>
-      </div>
-    }
-    {
-      !(locked && !allowlist[loginUser.uid]) &&
-      <header className={styles.header}>
-        <span>{roomTitle}</span>
-        <div className={styles.btnGroup}>
-          {
-          locked 
-            ? <FontAwesomeIcon icon={faLock} onClick={toggleLock}/>
-            : <FontAwesomeIcon icon={faLockOpen} onClick={toggleLock}/>
-          }
-          <FontAwesomeIcon icon={faShareFromSquare}/>
+      locked && !allowlist[loginUser.uid]
+        ?
+        <div>
+          <span>Locked!</span>
+          <span>Locked!</span>
+          <span>Locked!</span>
+          <span>Locked!</span>
+          <span>Locked!</span>
+          <span>Locked!</span>
+          <span>Locked!</span>
+          <span>Locked!</span>
         </div>
-
-      </header>
-    }
-    {
-      !(locked && !allowlist[loginUser.uid]) &&
-      <ul className={styles.messages} ref={refUl}>
-        {
-          chats && chats.map(({ nickname, message, imagePath, regdate, thumbnail }, index) => (          
-                  <li 
-                    className={styles.message}
-                    key={index}
-                  >
-                    <div className={styles.thumbnail}>
-                      <span>
-                        {
-                        thumbnail && <Image
-                            src={thumbnail}
-                            alt="Picture of the author"
-                            width={50}
-                            height={50}
-                          />
-                        }
-                      </span>
-                    </div>
-                    <div>
-                      <div className={styles.header}>
-                        <span className={styles.nickname}>{nickname}</span>
-                        <span className={styles.regdate}>{moment(regdate).format('YYYY-MM-DD HH:mm:ss')}</span>
-                      </div>
-                      <div>
-                        <span>
-                          {
-                            imagePath
-                              ? <img src={imagePath}/>
-                              : message
-                          }
-                        </span>
-                      </div>
-                    </div>
-                  </li>
-                  
-            )
-          )
-        }
-      </ul>
-    }
-    {
-      !(locked && !allowlist[loginUser.uid]) &&
-      <div className={styles.message_send}>
-          <input type="text" value={message}
-            onInput={({ target }) => { setMessage(target.value) }} 
-            onKeyPress={({ key }) => { key === 'Enter' && sendMessage() }}
-            onPaste={({ clipboardData }) => {
-              if(clipboardData.items.length > 0) {
-                const [ item ] = clipboardData.items;
-                const file = item.getAsFile();
-                sendImage(file);
+        : 
+        <>
+          <header className={styles.header}>
+            <span>{roomTitle}</span>
+            <div className={styles.btnGroup}>
+              {
+              locked 
+                ? <FontAwesomeIcon icon={faLock} onClick={toggleLock}/>
+                : <FontAwesomeIcon icon={faLockOpen} onClick={toggleLock}/>
               }
-            }}
-          />
-          <FontAwesomeIcon 
-            icon={faImage} 
-            className={styles.image_upload} 
-            onClick={()=> {
-              refFile.current.click();
-            }}
-          />
-          <input 
-            type="file" 
-            style={{ display: 'none' }} 
-            ref={refFile}
-            accept="image/jpeg"
-            onChange={({target}) => {
-              sendImage(target.files[0]);
-            }}
-          />
-      </div>
+              <FontAwesomeIcon icon={faShareFromSquare}/>
+            </div>
+          </header>
+          <ul className={styles.messages} ref={refUl}>
+            {
+              chats && chats.map(({ nickname, message, imagePath, regdate, thumbnail }, index) => (          
+                      <li 
+                        className={styles.message}
+                        key={index}
+                      >
+                        <div className={styles.thumbnail}>
+                          <span>
+                            {
+                            thumbnail && <Image
+                                src={thumbnail}
+                                alt="Picture of the author"
+                                width={50}
+                                height={50}
+                              />
+                            }
+                          </span>
+                        </div>
+                        <div>
+                          <div className={styles.header}>
+                            <span className={styles.nickname}>{nickname}</span>
+                            <span className={styles.regdate}>{moment(regdate).format('YYYY-MM-DD HH:mm:ss')}</span>
+                          </div>
+                          <div>
+                            <span>
+                              {
+                                imagePath
+                                  ? <img src={imagePath}/>
+                                  : message
+                              }
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      
+                )
+              )
+            }
+          </ul>
+          <div className={styles.message_send}>
+              <input type="text" value={message}
+                onInput={({ target }) => { setMessage(target.value) }} 
+                onKeyPress={({ key }) => { key === 'Enter' && sendMessage() }}
+                onPaste={({ clipboardData }) => {
+                  if(clipboardData.items.length > 0) {
+                    const [ item ] = clipboardData.items;
+                    const file = item.getAsFile();
+                    sendImage(file);
+                  }
+                }}
+              />
+              <FontAwesomeIcon 
+                icon={faImage} 
+                className={styles.image_upload} 
+                onClick={()=> {
+                  refFile.current.click();
+                }}
+              />
+              <input 
+                type="file" 
+                style={{ display: 'none' }} 
+                ref={refFile}
+                accept="image/jpeg"
+                onChange={({target}) => {
+                  sendImage(target.files[0]);
+                }}
+              />
+          </div>
+        </>
     }
   </>
 }
