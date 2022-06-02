@@ -26,6 +26,25 @@
             display: flex;
             justify-content: space-between;
             margin-right: 12px;
+            svg {
+                margin-top: 3px;
+            }
+        }
+
+        .count {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            span {
+                width: 18px;
+                height: 15px;
+                border-radius: 38%;
+                font-size: 10px;
+                font-weight: bold;
+                background-color: red;
+                color: white;
+                text-align: center;
+            }
         }
     }
 

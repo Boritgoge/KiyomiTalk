@@ -42,14 +42,14 @@ const RoomList = () => {
           >
             <div className={styles.cols}>
               <a>{ title }</a>
-              {locked && <FontAwesomeIcon icon={faLock}/>}
               {
                 key !== roomId 
                 && members
                 && members[loginUser.uid] 
                 && members[loginUser.uid].count > 0 
-                && members[loginUser.uid].count
+                && <div className={styles.count}><span>{ members[loginUser.uid].count }</span></div>
               }
+              {locked && <FontAwesomeIcon icon={faLock}/>}
             </div>
           </li>
           )
