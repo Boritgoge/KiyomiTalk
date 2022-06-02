@@ -51,9 +51,12 @@ const Room = () => {
       regdate: new Date(), 
     })
     
-    const reqMembers = { ...members };
-    for(let uid in reqMembers) {
-      reqMembers[uid].count += 1
+    const reqMembers = {};
+    for(const uid in members) {
+      reqMembers[uid] = {
+        ...members[uid],
+        count: members[uid].count + 1
+      }
     }
     updateByPath(`rooms/${roomId}/members`, reqMembers);
     setMessage("")
