@@ -30,6 +30,7 @@ const Room = () => {
       setLocked(locked)
       setCreator(creator)
       setMembers(members)
+      updateByPath(`rooms/${key}/members/${loginUser.uid}/count`, 0)
       if(locked && !members[loginUser.uid]) return;
       setChats(toList(chats))
     })
