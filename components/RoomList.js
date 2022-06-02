@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import db, { write, read, toListWithKey } from '/components/common/FirebaseDatabase'
+import db, { write, read, toListWithKey, updateByPath } from '/components/common/FirebaseDatabase'
 import { roomIdState, roomTitleState, userState } from '../recoil/atoms';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styles from '../styles/RoomList.module.scss'
@@ -28,13 +28,14 @@ const RoomList = () => {
     <header className={styles.header}>방목록</header>
     <ul className={styles.rooms}>
         {
-          rooms && rooms.map( ({key, title, locked}) => 
+          rooms && rooms.map( ({key, title, locked, members}) => 
           <li
             className={
               key === roomId && styles.selected
             }
             key={key}
             onClick={() => {
+              updateByPath(`rooms/${key}/members/${loginUser.uid}/count`, 0)
               setRoomId(key)
               setRoomTitle(title)
             }}
@@ -42,6 +43,7 @@ const RoomList = () => {
             <div className={styles.cols}>
               <a>{ title }</a>
               {locked && <FontAwesomeIcon icon={faLock}/>}
+              {key !== roomId && members[loginUser.uid] && members[loginUser.uid].count}
             </div>
           </li>
           )
@@ -57,8 +59,10 @@ const RoomList = () => {
                     write('rooms', { 
                       title: inputRef.current.value,
                       locked: false,
-                      allowlist: {
-                        [loginUser.uid]: true
+                      members: {
+                        [loginUser.uid]: {
+                          count: 0,
+                        }
                       },
                       creator: loginUser.uid,
                       created: new Date(),

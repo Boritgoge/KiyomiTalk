@@ -15,7 +15,7 @@ const Room = () => {
   const [chats, setChats] = useState([])
   const [message, setMessage] = useState('')
   const [creator, setCreator] = useState('')
-  const [allowlist, setAllowlist] = useState([])
+  const [members, setMembers] = useState({})
   const [locked, setLocked] = useState(false)
   const roomId = useRecoilValue(roomIdState)
   const roomTitle = useRecoilValue(roomTitleState)
@@ -25,12 +25,12 @@ const Room = () => {
   const refFile = useRef()
 
   useEffect(() => {
-    const unsubscribe = read(`rooms/${roomId}`, ({ key, locked, creator, allowlist, chats }) => {
+    const unsubscribe = read(`rooms/${roomId}`, ({ key, locked, creator, members, chats }) => {
       if(roomId !== key) return;
       setLocked(locked)
       setCreator(creator)
-      setAllowlist(allowlist)
-      if(locked && !allowlist[loginUser.uid]) return;
+      setMembers(members)
+      if(locked && !members[loginUser.uid]) return;
       setChats(toList(chats))
     })
     return () => {
@@ -39,7 +39,7 @@ const Room = () => {
   }, [db, roomId])
 
   useEffect(() => {
-    if(locked && !allowlist[loginUser.uid]) return;
+    if(locked && !members[loginUser.uid]) return;
     refUl.current.scrollTop = refUl.current.scrollHeight
   })
 
@@ -50,6 +50,12 @@ const Room = () => {
       nickname: loginUser.displayName, 
       regdate: new Date(), 
     })
+    
+    const reqMembers = { ...members };
+    for(let uid in reqMembers) {
+      reqMembers[uid].count += 1
+    }
+    updateByPath(`rooms/${roomId}/members`, reqMembers);
     setMessage("")
   }
 
@@ -70,7 +76,7 @@ const Room = () => {
     updateByPath(`rooms/${roomId}/locked`, !locked)
   }
   const isAllowed = () => {
-    return creator === loginUser.uid || allowlist[loginUser.uid]
+    return creator === loginUser.uid || members[loginUser.uid]
   }
   return <>
     { 

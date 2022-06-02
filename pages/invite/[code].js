@@ -9,10 +9,10 @@ export default function Invite() {
   const { code } = router.query
   useEffect(() => {
     if(user.uid) {
-      const unsubscribe = read(`rooms/${code}/allowlist`, (data) => {
+      const unsubscribe = read(`rooms/${code}/members`, (data) => {
         if(!data) return;
-        data[user.uid] = true;
-        updateByPath(`rooms/${code}/allowlist`, data)
+        data[user.uid] = { count: 0 };
+        updateByPath(`rooms/${code}/members`, data)
         router.push('/')
       })
       return () => {
