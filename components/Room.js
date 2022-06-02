@@ -53,10 +53,9 @@ const Room = () => {
     
     const reqMembers = {};
     for(const uid in members) {
-      if(uid === loginUser.uid) continue;
       reqMembers[uid] = {
         ...members[uid],
-        count: members[uid].count + 1
+        count: uid === loginUser.uid ? members[uid].count : members[uid].count + 1
       }
     }
     updateByPath(`rooms/${roomId}/members`, reqMembers);
