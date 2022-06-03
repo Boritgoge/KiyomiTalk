@@ -8,8 +8,10 @@ import styles from '../styles/Room.module.scss'
 import moment from 'moment'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImage, faLock, faLockOpen, faShareFromSquare } from "@fortawesome/free-solid-svg-icons"
+import { faImage, faLock, faLockOpen, faShareFromSquare, faUserGroup } from "@fortawesome/free-solid-svg-icons"
 import { copyToClipboard } from './common/CommonUtil';
+import { Popover } from '@headlessui/react'
+
 
 const Room = () => {
   const [chats, setChats] = useState([])
@@ -95,6 +97,42 @@ const Room = () => {
           <header className={styles.header}>
             <span>{roomTitle}</span>
             <div className={styles.btnGroup}>
+              {
+                <Popover className={styles.member_popup} >
+                  <Popover.Button className={styles.member_popup_button}>
+                    <FontAwesomeIcon 
+                      style={{ marginBottom: '2px' }}
+                      icon={faUserGroup} />
+                  </Popover.Button>
+                  <Popover.Panel className={styles.member_popup_panel}>
+                    <ul className={styles.member_list}>
+                      {
+                        Object.keys(members)
+                        .map(uid => members[uid])
+                        .map(({ profile }) => {
+                          const { nickname, photoURL } = profile || {};
+                          return ( 
+                            <li className={styles.member_item}>
+                              {
+                              photoURL && <Image
+                                  src={photoURL}
+                                  alt="Picture of the author"
+                                  width={30}
+                                  height={30}
+                                />
+                              }
+                              <div>
+                                <span>{nickname}</span>
+                              </div>
+                            </li>
+                          )
+
+                        })
+                      }
+                    </ul>
+                  </Popover.Panel>
+                </Popover>
+              }
               {
                 creator === loginUser.uid && 
                 <>

@@ -35,7 +35,13 @@ const RoomList = () => {
             }
             key={key}
             onClick={() => {
-              updateByPath(`rooms/${key}/members/${loginUser.uid}/count`, 0)
+              updateByPath(`rooms/${key}/members/${loginUser.uid}`, {
+                count: 0,
+                profile: {
+                  nickname: loginUser.displayName,
+                  photoURL: loginUser.photoURL,
+                }
+              })
               setRoomId(key)
               setRoomTitle(title)
             }}
@@ -68,6 +74,10 @@ const RoomList = () => {
                       members: {
                         [loginUser.uid]: {
                           count: 0,
+                          profile: {
+                            nickname: loginUser.displayName,
+                            photoURL: loginUser.photoURL,
+                          }
                         }
                       },
                       creator: loginUser.uid,
