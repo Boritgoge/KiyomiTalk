@@ -175,7 +175,7 @@ const Room = () => {
                             <span className={styles.nickname}>{nickname}</span>
                             <span className={styles.regdate}>{moment(regdate).format('YYYY-MM-DD HH:mm:ss')}</span>
                           </div>
-                          <div>
+                          <div className={styles.content}>
                             <span>
                               {
                                 imagePath
