@@ -108,11 +108,11 @@ const Room = () => {
                     <ul className={styles.member_list}>
                       {
                         Object.keys(members)
-                        .map(uid => members[uid])
-                        .map(({ profile }) => {
+                        .map(uid => ({uid, ...members[uid]}))
+                        .map(({ uid, profile }) => {
                           const { nickname, photoURL } = profile || {};
                           return ( 
-                            <li className={styles.member_item}>
+                            <li key={uid} className={styles.member_item}>
                               {
                               photoURL && <Image
                                   src={photoURL}
