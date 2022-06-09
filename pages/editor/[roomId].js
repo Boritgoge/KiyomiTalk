@@ -22,7 +22,6 @@ export default function Editor() {
     useEffect(() => {
         const unsubscribe = read(`rooms/${roomId}`, (data) => {
             const { key, locked, members, playground } = data || {};
-            console.log(roomId, key)
             if(roomId !== key) return;
             // setLocked(locked)
             // setMembers(members)      
@@ -40,7 +39,11 @@ export default function Editor() {
         height="100vh"
         value={playground}
         defaultLanguage="javascript"
-        onChange={(newValue) => {
+        onChange={(newValue, { changes }) => {
+            const [{ rangeLength, rangeOffset, text }] = changes;
+            if(rangeOffset === 0 && rangeLength === text.length) {
+                return;
+            }
             updateByPath(`rooms/${roomId}/playground`, newValue)
         }}
     />
