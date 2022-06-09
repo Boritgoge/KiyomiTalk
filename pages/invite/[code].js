@@ -3,6 +3,17 @@ import { read, updateByPath } from '/components/common/FirebaseDatabase'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getItem } from '/components/common/LocalStorage'
+
+export const getServerSideProps = async (context) => {
+  const { query } = context;
+  const { code } = query;
+  return {
+      props: {
+          code,
+      },
+  };
+};
+
 export default function Invite() {
   const user = getItem ('cachedUser') || {} 
   const router = useRouter()
