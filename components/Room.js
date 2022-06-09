@@ -8,7 +8,7 @@ import styles from '../styles/Room.module.scss'
 import moment from 'moment'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faImage, faLock, faLockOpen, faShareFromSquare, faUserGroup } from "@fortawesome/free-solid-svg-icons"
+import { faImage, faLock, faLockOpen, faShareFromSquare, faUserGroup, faLaptopCode } from "@fortawesome/free-solid-svg-icons"
 import { copyToClipboard } from './common/CommonUtil';
 import { Popover } from '@headlessui/react'
 
@@ -97,6 +97,15 @@ const Room = () => {
           <header className={styles.header}>
             <span>{roomTitle}</span>
             <div className={styles.btnGroup}>
+              {
+                <FontAwesomeIcon
+                  icon={faLaptopCode}
+                  onClick={()=>{
+                    window.open(`/editor/${roomId}`, '_blank')
+                    // window.open(`/editor`, '_blank')
+                  }}                 
+                />
+              }
               {
                 <Popover className={styles.member_popup} >
                   <Popover.Button className={styles.member_popup_button}>
