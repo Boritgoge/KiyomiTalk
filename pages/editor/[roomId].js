@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faJs, faJava, faPython } from "@fortawesome/free-brands-svg-icons"
 import { faDatabase } from "@fortawesome/free-solid-svg-icons"
 import styles from '../../styles/Editor.module.scss'
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/atoms';
 const MonacoEditorWithNoSSR = dynamic( 
     async () => import('@monaco-editor/react'),
     { ssr: false }
@@ -22,14 +24,13 @@ export const getServerSideProps = async (context) => {
 export default function Editor() {
     const [language, setLanguage] = useState('')
     const [code, setCode] = useState('')
+    const loginUser = useRecoilValue(userState)
     const router = useRouter()
     const { roomId } = router.query
     useEffect(() => {
         const unsubscribe = read(`rooms/${roomId}`, (data) => {
             const { key, locked, members, playground } = data || {};
             if(roomId !== key) return;
-            // setLocked(locked)
-            // setMembers(members)      
             if(locked && !members[loginUser.uid]) return;
             const { code, language } = playground || {};
             setCode(code)
@@ -39,7 +40,7 @@ export default function Editor() {
         return () => {
             unsubscribe()
         }
-    }, [db])
+    }, [db, loginUser])
 
     const setEditorLanguage = (language) => {
         setLanguage(language)
