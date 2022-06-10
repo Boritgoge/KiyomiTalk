@@ -47,6 +47,7 @@ export default function Editor() {
         updateByPath(`rooms/${roomId}/playground/language`, language)
     }
     return <>
+        <div className={styles.titlebar}>KiyomiTalk</div>
         <div className={styles.container}>
             <header className={styles.language_group}>
                 <FontAwesomeIcon className={language === 'javascript' ? 'selected' : ''} icon={faJs} onClick={()=>{setEditorLanguage('javascript')}}/>
