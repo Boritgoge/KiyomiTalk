@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import db, { read, updateByPath } from '/components/common/FirebaseDatabase'
@@ -27,6 +27,7 @@ export default function Editor() {
     const loginUser = useRecoilValue(userState)
     const router = useRouter()
     const { roomId } = router.query
+    const monacoRef = useRef(null);
     useEffect(() => {
         const unsubscribe = read(`rooms/${roomId}`, (data) => {
             const { key, locked, members, playground } = data || {};
@@ -35,6 +36,7 @@ export default function Editor() {
             const { code, language } = playground || {};
             setCode(code)
             setLanguage(language)
+            
             
         })
         return () => {
@@ -66,6 +68,9 @@ export default function Editor() {
                         return;
                     }
                     updateByPath(`rooms/${roomId}/playground/code`, newValue)
+                }}
+                onMount={(editor)=>{
+                    monacoRef.current = editor;
                 }}
             />
 
