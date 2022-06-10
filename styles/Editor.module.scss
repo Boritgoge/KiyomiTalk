@@ -1,0 +1,14 @@
+.language_group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    svg {
+        font-size: 2.5rem;
+        margin-right: 2rem;
+        cursor: pointer;
+        &:hover, &[class*=selected] {
+            color: #0070f3;
+        }
+    }
+}
