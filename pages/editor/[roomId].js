@@ -20,8 +20,8 @@ export const getServerSideProps = async (context) => {
     };
 };
 export default function Editor() {
-    const [language, setLanguage] = useState('javascript')
-    const [playground, setPlayground] = useState('')
+    const [language, setLanguage] = useState('')
+    const [code, setCode] = useState('')
     const router = useRouter()
     const { roomId } = router.query
     useEffect(() => {
@@ -31,32 +31,42 @@ export default function Editor() {
             // setLocked(locked)
             // setMembers(members)      
             if(locked && !members[loginUser.uid]) return;
-            setPlayground(playground)
+            const { code, language } = playground || {};
+            setCode(code)
+            setLanguage(language)
             
         })
         return () => {
             unsubscribe()
         }
     }, [db])
+
+    const setEditorLanguage = (language) => {
+        setLanguage(language)
+        updateByPath(`rooms/${roomId}/playground/language`, language)
+    }
     return <>
-        <header className={styles.language_group}>
-            <FontAwesomeIcon className={language === 'javascript' ? 'selected' : ''} icon={faJs} onClick={()=>{setLanguage('javascript')}}/>
-            <FontAwesomeIcon className={language === 'java' ? 'selected' : ''} icon={faJava} onClick={()=>{setLanguage('java')}}/>
-            <FontAwesomeIcon className={language === 'python' ? 'selected' : ''} icon={faPython} onClick={()=>{setLanguage('python')}}/>
-            <FontAwesomeIcon className={language === 'sql' ? 'selected' : ''} icon={faDatabase} onClick={()=>{setLanguage('sql')}}/>
-        </header>
-        <MonacoEditorWithNoSSR
-            theme="vs-dark"
-            height="100vh"
-            value={playground}
-            language={language}
-            onChange={(newValue, { changes }) => {
-                const [{ rangeLength, rangeOffset, text }] = changes;
-                if(rangeOffset === 0 && rangeLength === text.length) {
-                    return;
-                }
-                updateByPath(`rooms/${roomId}/playground`, newValue)
-            }}
-        />
+        <div className={styles.container}>
+            <header className={styles.language_group}>
+                <FontAwesomeIcon className={language === 'javascript' ? 'selected' : ''} icon={faJs} onClick={()=>{setEditorLanguage('javascript')}}/>
+                <FontAwesomeIcon className={language === 'java' ? 'selected' : ''} icon={faJava} onClick={()=>{setEditorLanguage('java')}}/>
+                <FontAwesomeIcon className={language === 'python' ? 'selected' : ''} icon={faPython} onClick={()=>{setEditorLanguage('python')}}/>
+                <FontAwesomeIcon className={language === 'sql' ? 'selected' : ''} icon={faDatabase} onClick={()=>{setEditorLanguage('sql')}}/>
+            </header>
+            <MonacoEditorWithNoSSR
+                theme="vs-dark"
+                height="100vh"
+                value={code}
+                language={language}
+                onChange={(newValue, { changes }) => {
+                    const [{ rangeLength, rangeOffset, text }] = changes;
+                    if(rangeOffset === 0 && rangeLength === text.length) {
+                        return;
+                    }
+                    updateByPath(`rooms/${roomId}/playground/code`, newValue)
+                }}
+            />
+
+        </div>
     </>
 }

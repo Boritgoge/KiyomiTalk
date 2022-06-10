@@ -106,7 +106,6 @@ const Room = () => {
                   icon={faLaptopCode}
                   onClick={()=>{
                     window.open(`/editor/${roomId}`, '_blank')
-                    // window.open(`/editor`, '_blank')
                   }}                 
                 />
               }
