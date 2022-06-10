@@ -27,8 +27,12 @@ const Room = () => {
   const refFile = useRef()
 
   useEffect(() => {
-    const unsubscribe = read(`rooms/${roomId}`, ({ key, locked, creator, members, chats }) => {
-      if(roomId !== key) return;
+    const unsubscribe = read(`rooms/${roomId}`, (data) => {
+      const { key, locked, creator, members, chats } = data || {};
+      if(roomId !== key) {
+        setChats([])
+        return;
+      }
       setLocked(locked)
       setCreator(creator)
       setMembers(members)
