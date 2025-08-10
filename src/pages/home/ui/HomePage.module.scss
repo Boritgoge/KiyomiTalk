@@ -1,0 +1,32 @@
+// VSCode dark theme colors
+$font: #cccccc;
+$channelColor: #0d0d0d;
+$roomColor: #252526;
+$messagesColor: #1e1e1e;
+$borderColor: #3e3e42;
+
+.container {
+  display: flex;
+  height: calc(100vh - 30px);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+  .channels {
+    width: 0px; // Hidden for now
+    background-color: $channelColor;
+    flex-shrink: 0;
+  }
+  
+  .rooms {
+    width: 200px;
+    background-color: $roomColor;
+    color: $font;
+    flex-shrink: 0;
+    border-right: 1px solid $borderColor;
+  }
+  
+  .main {
+    flex: 1;
+    background-color: $messagesColor;
+    color: $font;
+  }
+}

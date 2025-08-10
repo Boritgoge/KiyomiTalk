@@ -1,0 +1,36 @@
+$cursor-colors: (
+  1: #ff6b6b,
+  2: #4ecdc4,
+  3: #45b7d1,
+  4: #96ceb4,
+  5: #feca57,
+  6: #ff9ff3,
+  7: #54a0ff,
+  8: #48dbfb
+);
+
+// 이름 라벨 표시
+.flagLabel {
+  pointer-events: none;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 11px;
+  color: white;
+  border: 1px solid var(--cursor-color, #4ecdc4);
+  
+  .name {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// 각 사용자별 색상 클래스
+@each $index, $color in $cursor-colors {
+  .cursor-user-#{$index} {
+    --cursor-color: #{$color};
+  }
+}

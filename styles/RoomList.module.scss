@@ -1,33 +1,86 @@
+// VSCode dark theme colors
+$bg-color: #252526;
+$bg-hover: #2a2d2e;
+$bg-active: #094771;
+$border-color: #3e3e42;
+$text-color: #cccccc;
+$text-muted: #8b8b8b;
+$button-bg: #0e639c;
+$button-hover: #1177bb;
+
 .header {
-    margin-top: 10px;
-    margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: $text-muted;
+    letter-spacing: 0.5px;
+    
+    .refreshBtn {
+        font-size: 12px;
+        cursor: pointer;
+        color: $text-muted;
+        transition: all 0.3s;
+        
+        &:hover {
+            color: $text-color;
+            transform: rotate(180deg);
+        }
+        
+        &:active {
+            transform: rotate(360deg);
+        }
+    }
 }
+
 .rooms {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
     overflow-y: auto;
-    max-height: calc(95vh - 31%);
-    width: 150px;
-    padding: 0;
+    flex: 1;
+    
     li {
-        width: 100%;
-        font-size: 12px;
-        padding-left: 17px;
-        padding-top: 4px;
-        padding-bottom: 4px;
+        padding: 0.5rem 1rem;
         cursor: pointer;
-        &:hover, &.selected {
-            background-color: #2f3542;
+        color: $text-color;
+        font-size: 13px;
+        transition: background-color 0.1s;
+        
+        &:hover {
+            background-color: $bg-hover;
+        }
+        
+        &.selected {
+            background-color: $bg-active;
+            color: white;
         }
 
         .cols {
             display: flex;
             justify-content: space-between;
-            margin-right: 12px;
+            align-items: center;
+            gap: 0.5rem;
+            
+            a {
+                flex: 1;
+            }
+            
             svg {
-                margin-top: 3px;
+                font-size: 10px;
+                color: $text-muted;
+                
+                &.deleteBtn {
+                    color: #e74c3c;
+                    cursor: pointer;
+                    transition: color 0.2s;
+                    
+                    &:hover {
+                        color: #c0392b;
+                    }
+                }
             }
         }
 
@@ -35,44 +88,53 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            
             span {
-                width: 18px;
-                height: 15px;
-                border-radius: 38%;
+                min-width: 18px;
+                height: 18px;
+                padding: 0 4px;
+                border-radius: 9px;
                 font-size: 10px;
-                font-weight: bold;
-                background-color: red;
+                font-weight: 600;
+                background-color: $button-bg;
                 color: white;
-                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
     }
 
     &::-webkit-scrollbar {
-        width: 8px;
+        width: 10px;
     }
-    &::-webkit-scrollbar-thumb {
-        background-color: #2f3542;
-        border-radius: 10px;
-        background-clip: padding-box;
-        border: 2px solid transparent;
-    }
+    
     &::-webkit-scrollbar-track {
-        background-color: grey;
-        border-radius: 10px;
-        box-shadow: inset 0px 0px 1px white;
+        background: $bg-color;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: #424242;
+        border-radius: 5px;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+        background: #4e4e4e;
     }
 
     .input {
-        width: 125px;
-        height: 19px;
-        margin-top: 15px;
-        margin-left: 15px;
-        outline: none;
-        background-color: grey;
-        border: 0;
+        margin: 0.5rem;
+        padding: 0.5rem;
+        border: 1px solid $border-color;
+        background-color: #3c3c3c;
+        color: $text-color;
         border-radius: 2px;
-        color: #2f3542;
+        font-size: 13px;
+        outline: none;
+        
+        &:focus {
+            border-color: #007acc;
+        }
     }
 }
 
@@ -80,20 +142,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0.5rem;
 
     .btnAdd {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 2.5em;
-        height: 2.5em;
-        border-color: transparent;
-        border-radius: 50%;
-        background-color: #35383D;
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 3px;
+        background-color: transparent;
         cursor: pointer;
+        color: $text-muted;
+        transition: all 0.2s;
 
         &:hover {
-            background-color: #2f3542;
+            background-color: $bg-hover;
+            color: $text-color;
         }
     }
 }

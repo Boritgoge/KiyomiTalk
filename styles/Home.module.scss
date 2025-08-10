@@ -1,36 +1,86 @@
-$font: #858585;
-$channelColor: #0d0d0d;
-$roomColor: #252526;
-$messagesColor: #1e1e1e;
-.titlebar {
-    background-color: #2f3542;
-    color: #858585;
-    font-size: 0.7em;
-    font-weight: bold;
-    padding: 0.5em 0.5em 0.5em 1em;
-}
+// VSCode dark theme colors
+$bg-color: #1e1e1e;
+$sidebar-bg: #252526;
+$titlebar-bg: #2c2c2c;
+$panel-bg: #2d2d30;
+$border-color: #3e3e42;
+$text-color: #cccccc;
+$text-muted: #8b8b8b;
+
 .container {
     display: flex;
-    justify-content: flex-start;
-    color: $font;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    .channels {
-        // width: 75px;
-        width: 0px;
-        background-color: $channelColor;        
-        display: flex;
-        flex-direction: column;
+    background-color: $bg-color;
+}
+
+.titlebar {
+    height: 30px;
+    background-color: $titlebar-bg;
+    color: $text-color;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid $border-color;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.userName {
+    color: $text-muted;
+    font-weight: normal;
+}
+
+.logoutBtn {
+    background: transparent;
+    border: none;
+    color: $text-muted;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+    
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: $text-color;
     }
-    .rooms {
-        width: 150px;
-        background-color: $roomColor;        
-        display: flex;
-        flex-direction: column;
+    
+    svg {
+        width: 16px;
+        height: 16px;
     }
-    .main {
-        width: 100vw;
-        background-color: $messagesColor;
-    }
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: $sidebar-bg;
+    border-right: 1px solid $border-color;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.content {
+    flex: 1;
+    background-color: $bg-color;
+    overflow: hidden;
 }

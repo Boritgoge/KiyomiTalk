@@ -1,0 +1,1 @@
+export { roomIdState } from '../../../shared/lib/recoil/atoms'

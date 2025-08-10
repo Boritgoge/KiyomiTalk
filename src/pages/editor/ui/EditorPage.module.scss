@@ -1,0 +1,38 @@
+// VSCode dark theme colors
+$bg-color: #1e1e1e;
+$panel-bg: #2d2d30;
+$border-color: #3e3e42;
+$text-color: #cccccc;
+$text-muted: #8b8b8b;
+$blue-accent: #007acc;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 30px); // Adjusted for VSCode titlebar height
+  background-color: $bg-color;
+  
+  .language_group {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: $panel-bg;
+    border-bottom: 1px solid $border-color;
+    
+    svg {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      color: $text-muted;
+      transition: color 0.2s;
+      
+      &:hover {
+        color: $text-color;
+      }
+      
+      &.selected {
+        color: $blue-accent;
+      }
+    }
+  }
+}

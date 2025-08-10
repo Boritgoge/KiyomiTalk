@@ -1,20 +1,54 @@
+// VSCode dark theme colors
+$bg-color: #1e1e1e;
+$header-bg: #2d2d30;
+$modal-bg: #2d2d30;
+$border-color: #3e3e42;
+$text-color: #cccccc;
+$text-muted: #8b8b8b;
+$input-bg: #3c3c3c;
+$message-hover: #2a2d2e;
+$blue-accent: #569cd6;
+
 .header {
-    margin-top: 12px;
-    margin-left: 10px;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: $header-bg;
+    border-bottom: 1px solid $border-color;
+    margin: 0;
+    
+    span {
+        font-size: 14px;
+        font-weight: 600;
+        color: $text-color;
+    }
 
     .btnGroup {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
         align-items: center;
-        svg {
-            margin-right: 10px;
+        gap: 0.5rem;
+        
+        > svg {
             cursor: pointer;
+            color: $text-muted;
+            font-size: 16px;
+            transition: all 0.2s;
+            padding: 4px;
+            border-radius: 4px;
+            
             &:hover {
-                color: #2f3542;
+                color: $text-color;
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            &.deleteBtn {
+                color: #e74c3c;
+                
+                &:hover {
+                    color: #c0392b;
+                    background-color: rgba(231, 76, 60, 0.1);
+                }
             }
         }
     }
@@ -22,15 +56,11 @@
 .messages {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    overflow-x: hidden;
     overflow-y: auto;
-    height: calc(95vh - 25%);
-    max-height: calc(95vh - 25%);
-    color: white;
-    width: 100%;
-    padding: 0;
+    flex: 1;
+    padding: 1rem;
+    background-color: $bg-color;
+    color: $text-color;
     
     .message {
         width: 100%;        
@@ -79,18 +109,20 @@
         }
     }
     &::-webkit-scrollbar {
-        width: 8px;
+        width: 10px;
     }
-    &::-webkit-scrollbar-thumb {
-        background-color: #2f3542;
-        border-radius: 10px;
-        background-clip: padding-box;
-        border: 2px solid transparent;
-    }
+    
     &::-webkit-scrollbar-track {
-        background-color: grey;
-        border-radius: 10px;
-        box-shadow: inset 0px 0px 1px white;
+        background: $bg-color;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: #424242;
+        border-radius: 5px;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+        background: #4e4e4e;
     }
 }
 .message_send {
@@ -124,70 +156,183 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    background-color: $bg-color;
+    color: $text-color;
+    
     svg {
-        font-size: 100px;
-        margin-bottom: 10px;
+        font-size: 80px;
+        margin-bottom: 20px;
+        color: $text-muted;
+    }
+    
+    h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: $text-color;
+    }
+    
+    p {
+        font-size: 14px;
+        color: $text-muted;
+        text-align: center;
+        line-height: 1.5;
+        
+        &.guestInfo, &.memberInfo {
+            margin-top: 15px;
+            padding: 15px 30px;
+            background-color: $header-bg;
+            border: 1px solid $border-color;
+            border-radius: 6px;
+        }
     }
 }
 .member_popup {
+    position: relative;
+    display: flex;
+    align-items: center;
+    
     .member_popup_button {
         background-color: transparent;
         border: none;
-        color: #858585;
+        color: $text-muted;
         outline: none;
-        font-size: 14px;
+        font-size: 16px;
         margin: 0;
-        padding: 0;
+        padding: 4px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        
+        &:hover {
+            color: $text-color;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
     }
+    
     .member_popup_panel {
         position: absolute;
-        background-color: #252526;
-        right: 10px;
-        width: 200px;
-        height: 210px;
-        max-height: 250px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        &::-webkit-scrollbar {
-            width: 8px;
-        }
-        &::-webkit-scrollbar-thumb {
-            background-color: #2f3542;
-            border-radius: 10px;
-            background-clip: padding-box;
-            border: 2px solid transparent;
-        }
-        &::-webkit-scrollbar-track {
-            background-color: grey;
-            border-radius: 10px;
-            box-shadow: inset 0px 0px 1px white;
+        background-color: $modal-bg;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        right: 0;
+        top: 100%;
+        margin-top: 8px;
+        width: 280px;
+        max-height: 400px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        
+        .member_popup_header {
+            padding: 12px 16px;
+            border-bottom: 1px solid $border-color;
+            background-color: $header-bg;
+            
+            span {
+                font-size: 14px;
+                font-weight: 600;
+                color: $text-color;
+            }
         }
 
         .member_list {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            flex-direction: column;
-            padding-left: 20px;
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+            
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: #424242;
+                border-radius: 4px;
+            }
+            &::-webkit-scrollbar-track {
+                background-color: transparent;
+            }
 
             .member_item {
                 display: flex;
-                margin-top: 10px;
-                padding-bottom: 5px;
-                img {
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 50%;
-                }
-                span {
-                    margin-left: 10px;
-                    font-size: 13px;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 16px;
+                transition: background-color 0.2s;
+                
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.05);
                 }
                 
+                .member_info {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    flex: 1;
+                    
+                    img {
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                    }
+                    
+                    .member_name {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2px;
+                        
+                        > span {
+                            font-size: 13px;
+                            color: $text-color;
+                        }
+                        
+                        .badges {
+                            display: flex;
+                            gap: 4px;
+                            flex-wrap: wrap;
+                            
+                            span {
+                                display: inline-block;
+                                padding: 2px 6px;
+                                font-size: 10px;
+                                border-radius: 3px;
+                                width: fit-content;
+                                
+                                &.badge {
+                                    background-color: $blue-accent;
+                                    color: white;
+                                }
+                                
+                                &.badge_me {
+                                    background-color: #6c757d;
+                                    color: white;
+                                }
+                                
+                                &.badge_guest {
+                                    background-color: #9b59b6;
+                                    color: white;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                .kickBtn {
+                    cursor: pointer;
+                    color: #e74c3c;
+                    font-size: 14px;
+                    padding: 4px;
+                    border-radius: 4px;
+                    transition: all 0.2s;
+                    
+                    &:hover {
+                        background-color: rgba(231, 76, 60, 0.2);
+                        color: #c0392b;
+                    }
+                }
             }
-
-
         }
-
     }
 }

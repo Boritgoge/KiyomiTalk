@@ -1,0 +1,65 @@
+/* Remote cursor styles for Monaco Editor */
+.remote-cursor-1 {
+  border-left: 2px solid #ff6b6b !important;
+}
+
+.remote-cursor-2 {
+  border-left: 2px solid #4ecdc4 !important;
+}
+
+.remote-cursor-3 {
+  border-left: 2px solid #45b7d1 !important;
+}
+
+.remote-cursor-4 {
+  border-left: 2px solid #96ceb4 !important;
+}
+
+.remote-cursor-5 {
+  border-left: 2px solid #feca57 !important;
+}
+
+.remote-cursor-6 {
+  border-left: 2px solid #ff9ff3 !important;
+}
+
+.remote-cursor-7 {
+  border-left: 2px solid #54a0ff !important;
+}
+
+.remote-cursor-8 {
+  border-left: 2px solid #48dbfb !important;
+}
+
+/* Remote selection styles */
+.remote-selection-1 {
+  background-color: rgba(255, 107, 107, 0.3) !important;
+}
+
+.remote-selection-2 {
+  background-color: rgba(78, 205, 196, 0.3) !important;
+}
+
+.remote-selection-3 {
+  background-color: rgba(69, 183, 209, 0.3) !important;
+}
+
+.remote-selection-4 {
+  background-color: rgba(150, 206, 180, 0.3) !important;
+}
+
+.remote-selection-5 {
+  background-color: rgba(254, 202, 87, 0.3) !important;
+}
+
+.remote-selection-6 {
+  background-color: rgba(255, 159, 243, 0.3) !important;
+}
+
+.remote-selection-7 {
+  background-color: rgba(84, 160, 255, 0.3) !important;
+}
+
+.remote-selection-8 {
+  background-color: rgba(72, 219, 251, 0.3) !important;
+}

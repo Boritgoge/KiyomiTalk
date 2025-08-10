@@ -1,0 +1,150 @@
+// VSCode dark theme colors
+$bg-color: #1e1e1e;
+$modal-bg: #2d2d30;
+$border-color: #3e3e42;
+$text-color: #cccccc;
+$text-muted: #8b8b8b;
+$primary-color: #007acc;
+$primary-hover: #005a9e;
+$cancel-color: #3c3c3c;
+$cancel-hover: #4a4a4a;
+$danger-color: #e74c3c;
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modalContent {
+  background-color: $modal-bg;
+  border: 1px solid $border-color;
+  border-radius: 6px;
+  min-width: 320px;
+  max-width: 480px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  animation: slideIn 0.2s ease-out;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid $border-color;
+  
+  h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: $text-color;
+  }
+  
+  .closeBtn {
+    cursor: pointer;
+    color: $text-muted;
+    font-size: 14px;
+    transition: color 0.2s;
+    
+    &:hover {
+      color: $text-color;
+    }
+  }
+}
+
+.modalBody {
+  padding: 20px;
+  
+  p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: $text-color;
+  }
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 20px;
+  border-top: 1px solid $border-color;
+  
+  button {
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    outline: none;
+    
+    &.primaryBtn {
+      background-color: $primary-color;
+      color: white;
+      
+      &:hover {
+        background-color: $primary-hover;
+      }
+      
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+    
+    &.cancelBtn {
+      background-color: $cancel-color;
+      color: $text-color;
+      
+      &:hover {
+        background-color: $cancel-hover;
+      }
+      
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+    
+    &.dangerBtn {
+      background-color: $danger-color;
+      color: white;
+      
+      &:hover {
+        background-color: darken($danger-color, 10%);
+      }
+      
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

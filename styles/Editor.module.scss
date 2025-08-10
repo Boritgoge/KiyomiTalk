@@ -1,31 +1,58 @@
+// VSCode dark theme colors
+$bg-color: #1e1e1e;
+$titlebar-bg: #2c2c2c;
+$panel-bg: #2d2d30;
+$border-color: #3e3e42;
+$text-color: #cccccc;
+$text-muted: #8b8b8b;
+$blue-accent: #007acc;
+
 .titlebar {
-    background-color: #2f3542;
-    color: #858585;
-    font-size: 0.7em;
-    font-weight: bold;
-    padding: 0.5em 0.5em 0.5em 1em;
+    height: 30px;
+    background-color: $titlebar-bg;
+    color: $text-color;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid $border-color;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    height: calc(100vh - 30px);
+    background-color: $bg-color;
+    
     .language_group {
-        background-color: #333333;
-        color: #858585;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        gap: 1rem;
+        padding: 0.75rem 1rem;
+        background: $panel-bg;
+        border-bottom: 1px solid $border-color;
         justify-content: flex-start;
         align-items: center;
-        min-width:50px;
+        min-width: auto;
+        
         svg {
-            font-size: 1.8rem;
-            padding: 0.5rem 0.7rem;
+            width: 24px;
+            height: 24px;
             cursor: pointer;
+            color: $text-muted;
+            transition: color 0.2s;
+            font-size: 1.5rem;
+            padding: 0;
+            
             &:hover {
-                color: #ffffff;
+                color: $text-color;
             }
-            &[class*=selected] {
-                color: #ffffff;
-                border-left: 1.95px solid white;
+            
+            &.selected {
+                color: $blue-accent;
+                border-left: none;
             }
         }
     }
