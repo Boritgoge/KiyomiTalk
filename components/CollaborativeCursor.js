@@ -89,7 +89,7 @@ const CollaborativeCursor = ({ cursor, editor, colorIndex }) => {
         const layoutInfo = editor.getLayoutInfo();
         
         // 실제 화면상 위치 계산 (커서 위치에 정확히)
-        const left = editorRect.left + layoutInfo.contentLeft + coords.left;
+        const left = editorRect.left + layoutInfo.contentLeft + coords.left - 64; // 70px 왼쪽으로 이동
         const top = editorRect.top + coords.top + coords.height; // 실제 커서 위치는 높이를 더한 곳
 
         console.log('Cursor position calculated:', { left, top, coords, editorRect });
@@ -128,6 +128,20 @@ const CollaborativeCursor = ({ cursor, editor, colorIndex }) => {
         top: `${cursorPosition.top - 20}px`, // 커서 위 20px
       }}
     >
+      {user?.photoURL ? (
+        <img 
+          src={user.photoURL} 
+          alt={user.displayName || '익명'} 
+          className={styles.avatar}
+          onError={(e) => {
+            e.target.style.display = 'none';
+          }}
+        />
+      ) : (
+        <div className={styles.avatarPlaceholder}>
+          {(user?.displayName || '익명')[0].toUpperCase()}
+        </div>
+      )}
       <span className={styles.name}>{user?.displayName || '익명'}</span>
     </div>
   );
