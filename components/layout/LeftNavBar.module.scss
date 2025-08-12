@@ -34,7 +34,6 @@
   overflow-y: auto;
   
   &.withTitlebar {
-    top: 30px;
     height: calc(100vh - 30px);
   }
 

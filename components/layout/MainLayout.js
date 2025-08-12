@@ -9,9 +9,6 @@ const MainLayout = ({ children }) => {
 
   return (
     <div className={styles.layoutContainer}>
-      {isEditorPage && (
-        <header className={styles.globalTitlebar}>KiyomiTalk</header>
-      )}
       <div className={`${styles.contentWrapper} ${isEditorPage ? styles.withTitlebar : ''}`}>
         <LeftNavBar />
         <main className={styles.mainContent}>

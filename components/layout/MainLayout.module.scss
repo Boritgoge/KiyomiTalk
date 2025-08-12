@@ -25,10 +25,6 @@
 .contentWrapper {
   display: flex;
   flex: 1;
-  
-  &.withTitlebar {
-    margin-top: 30px;
-  }
 }
 
 .mainContent {
