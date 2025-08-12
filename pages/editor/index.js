@@ -102,7 +102,7 @@ export default function Editor() {
           <div className={styles.empty}>
             <FontAwesomeIcon icon={faComments} className={styles.emptyIcon} />
             <p>아직 생성된 채팅방이 없습니다.</p>
-            <p className={styles.hint}>"새 채팅방" 버튼을 눌러 첫 번째 채팅방을 만들어보세요!</p>
+            <p className={styles.hint}>{`"새 채팅방" 버튼을 눌러 첫 번째 채팅방을 만들어보세요!`}</p>
           </div>
         ) : (
           <div className={styles.roomGrid}>

@@ -51,7 +51,7 @@ export default function Home() {
               </div>
               <div className={styles.codeLine}>
                 <span className={styles.property}>  name:</span> 
-                <span className={styles.string}> "실시간 협업 플랫폼"</span>
+                <span className={styles.string}> {'"실시간 협업 플랫폼"'}</span>
                 <span className={styles.punctuation}>,</span>
               </div>
               <div className={styles.codeLine}>
@@ -64,12 +64,12 @@ export default function Home() {
               </div>
               <div className={styles.codeLine}>
                 <span className={styles.property}>  theme:</span> 
-                <span className={styles.string}> "VSCode Dark"</span>
+                <span className={styles.string}> {`"VSCode Dark"`}</span>
                 <span className={styles.punctuation}>,</span>
               </div>
               <div className={styles.codeLine}>
                 <span className={styles.property}>  status:</span> 
-                <span className={styles.string}> "Ready to collaborate"</span>
+                <span className={styles.string}> {`"Ready to collaborate"`}</span>
               </div>
               <div className={styles.codeLine}>
                 <span className={styles.punctuation}>{'}'}</span>

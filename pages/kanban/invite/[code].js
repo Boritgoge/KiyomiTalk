@@ -169,7 +169,7 @@ const InvitePage = () => {
           {board && (
             <div className={styles.boardPreview}>
               <h3>초대받은 보드</h3>
-              <div className={styles.boardName}>"{board.title}"</div>
+              <div className={styles.boardName}>{`"${board.title}"`}</div>
               <div className={styles.inviterInfo}>
                 초대한 사람: {invitation?.invitedBy ? board.members?.[invitation.invitedBy]?.displayName || '알 수 없음' : '알 수 없음'}
               </div>
