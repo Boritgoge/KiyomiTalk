@@ -138,7 +138,7 @@ export default function Editor() {
         removeByPath(`rooms/${roomId}/cursors/${loginUser.uid}`)
       }
     }
-  }, [roomId, loginUser])
+  }, [roomId, loginUser, userColors])
 
   const setEditorLanguage = (language) => {
     setLanguage(language)

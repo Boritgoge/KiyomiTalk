@@ -57,9 +57,9 @@ export default function Home() {
               <div className={styles.codeLine}>
                 <span className={styles.property}>  features:</span> 
                 <span className={styles.punctuation}> [</span>
-                <span className={styles.string}>"채팅"</span>
+                <span className={styles.string}>{`"채팅"`}</span>
                 <span className={styles.punctuation}>, </span>
-                <span className={styles.string}>"칸반보드"</span>
+                <span className={styles.string}>{`"칸반보드"`}</span>
                 <span className={styles.punctuation}>],</span>
               </div>
               <div className={styles.codeLine}>
@@ -160,7 +160,7 @@ export default function Home() {
 
       {/* Quick Start */}
       <section className={styles.quickStart}>
-        <h2 className={styles.sectionTitle}>// Quick Start</h2>
+        <h2 className={styles.sectionTitle}>{`// Quick Start`}</h2>
         <div className={styles.commandBox}>
           <div className={styles.command}>
             <span className={styles.prompt}>$</span>
