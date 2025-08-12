@@ -1,0 +1,47 @@
+// Firebase Storage 보안 규칙
+// Firebase Console > Storage > Rules 에서 설정
+
+// 개발/테스트용 (모든 사용자 허용 - 주의!)
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}
+
+// 인증된 사용자만 허용 (프로덕션 권장)
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
+
+// 보드별 접근 제어 (더 안전한 방식)
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // 보드 관련 파일
+    match /boards/{boardId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // 사용자 프로필 이미지
+    match /users/{userId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // 채팅 이미지
+    match /images/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}

@@ -79,7 +79,20 @@ const LoginPage = () => {
               const user = await FirebaseAuth.signInWithGoogle()
               LocalStorage.setItem('cachedUser', user)
               setUser(user)
-              router.push('/')
+              
+              // 로그인 후 리다이렉트 처리
+              const redirectUrl = sessionStorage.getItem('redirectAfterLogin')
+              const inviteCode = sessionStorage.getItem('inviteCode')
+              
+              if (inviteCode) {
+                sessionStorage.removeItem('inviteCode')
+                router.push(`/kanban/invite/${inviteCode}`)
+              } else if (redirectUrl) {
+                sessionStorage.removeItem('redirectAfterLogin')
+                router.push(redirectUrl)
+              } else {
+                router.push('/')
+              }
             }}
           >
             <FontAwesomeIcon 
@@ -125,7 +138,20 @@ const LoginPage = () => {
               const user = await FirebaseAuth.signInWithGithub()
               LocalStorage.setItem('cachedUser', user)
               setUser(user)
-              router.push('/')
+              
+              // 로그인 후 리다이렉트 처리
+              const redirectUrl = sessionStorage.getItem('redirectAfterLogin')
+              const inviteCode = sessionStorage.getItem('inviteCode')
+              
+              if (inviteCode) {
+                sessionStorage.removeItem('inviteCode')
+                router.push(`/kanban/invite/${inviteCode}`)
+              } else if (redirectUrl) {
+                sessionStorage.removeItem('redirectAfterLogin')
+                router.push(redirectUrl)
+              } else {
+                router.push('/')
+              }
             }}
           >
             <FontAwesomeIcon 

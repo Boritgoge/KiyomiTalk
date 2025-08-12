@@ -1,0 +1,415 @@
+// VSCode Dark Theme Colors
+$bg-dark: #1e1e1e;
+$bg-secondary: #252526;
+$bg-hover: #2a2d2e;
+$border: #3e3e42;
+$text-primary: #cccccc;
+$text-secondary: #8b8b8b;
+$accent-blue: #007acc;
+$accent-green: #4ec9b0;
+$keyword: #569cd6;
+$string: #ce9178;
+$variable: #9cdcfe;
+$property: #9cdcfe;
+$comment: #6a9955;
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: $bg-dark;
+  color: $text-primary;
+  padding-left: 240px;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding-left: 0;
+  }
+}
+
+// Hero Section
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 60px;
+  min-height: 70vh;
+
+  @media (max-width: 968px) {
+    flex-direction: column;
+    padding: 40px 5%;
+  }
+}
+
+// Code Editor Mock
+.codeEditor {
+  flex: 1;
+  background: $bg-secondary;
+  border: 1px solid $border;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  font-family: 'Consolas', 'Monaco', monospace;
+  max-width: 600px;
+}
+
+.editorHeader {
+  background: $bg-hover;
+  border-bottom: 1px solid $border;
+  padding: 0;
+}
+
+.tabs {
+  display: flex;
+}
+
+.tab {
+  padding: 8px 16px;
+  background: $bg-secondary;
+  border-right: 1px solid $border;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: $text-primary;
+
+  svg {
+    font-size: 12px !important;
+    color: $accent-blue;
+  }
+}
+
+.editorContent {
+  display: flex;
+  padding: 16px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.lineNumbers {
+  padding: 0 16px;
+  color: #5a5a5a;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  
+  span {
+    display: block;
+  }
+}
+
+.code {
+  flex: 1;
+  padding-right: 16px;
+}
+
+.codeLine {
+  display: block;
+  white-space: pre;
+}
+
+.keyword { color: $keyword; }
+.string { color: $string; }
+.variable { color: $variable; }
+.property { color: $property; }
+.operator { color: $text-primary; }
+.punctuation { color: $text-primary; }
+
+// Hero Content
+.heroContent {
+  flex: 1;
+}
+
+.title {
+  margin: 0 0 16px 0;
+  font-size: 48px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+
+  .terminal {
+    color: $accent-green;
+    font-size: 40px !important;
+  }
+}
+
+.subtitle {
+  font-size: 24px;
+  margin: 0 0 12px 0;
+  color: $accent-blue;
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 0 32px 0;
+  color: $text-secondary;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 16px;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+.primaryBtn,
+.secondaryBtn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  svg {
+    font-size: 14px !important;
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.primaryBtn {
+  background: $accent-blue;
+  color: white;
+  
+  &:hover {
+    background: lighten($accent-blue, 10%);
+  }
+}
+
+.secondaryBtn {
+  background: transparent;
+  color: $text-primary;
+  border: 1px solid $border;
+  
+  &:hover {
+    background: $bg-hover;
+    border-color: $accent-blue;
+  }
+}
+
+// Features Section
+.features {
+  background: $bg-secondary;
+  padding: 60px 5%;
+  border-top: 1px solid $border;
+  
+  @media (max-width: 768px) {
+    padding: 40px 5%;
+  }
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.featureCard {
+  background: $bg-dark;
+  border: 1px solid $border;
+  border-radius: 4px;
+  padding: 24px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: $accent-blue;
+    transform: translateY(-2px);
+  }
+  
+  .featureIcon {
+    width: 48px;
+    height: 48px;
+    margin: 0 0 16px 0;
+    background: $bg-hover;
+    border: 1px solid $border;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    svg {
+      font-size: 24px !important;
+      color: $accent-green;
+    }
+  }
+  
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: $text-secondary;
+    line-height: 1.5;
+  }
+}
+
+// Quick Start Section
+.quickStart {
+  background: $bg-dark;
+  padding: 60px 5%;
+  border-top: 1px solid $border;
+  
+  @media (max-width: 768px) {
+    padding: 40px 5%;
+  }
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  color: $comment;
+  margin: 0 0 32px 0;
+  font-family: 'Consolas', 'Monaco', monospace;
+  
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+}
+
+.commandBox {
+  max-width: 600px;
+  margin: 0 auto 40px;
+  background: $bg-secondary;
+  border: 1px solid $border;
+  border-radius: 4px;
+  padding: 16px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.command {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  .prompt {
+    color: $accent-green;
+    font-weight: 600;
+  }
+  
+  .text {
+    color: $text-primary;
+  }
+}
+
+.accessInfo {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  max-width: 600px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.accessCard {
+  flex: 1;
+  max-width: 250px;
+  background: $bg-secondary;
+  border: 1px solid $border;
+  border-radius: 4px;
+  padding: 24px;
+  
+  h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: $accent-blue;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      padding: 4px 0;
+      font-size: 14px;
+      color: $text-secondary;
+    }
+  }
+}
+
+// Footer
+.footer {
+  background: $bg-secondary;
+  border-top: 1px solid $border;
+  padding: 24px 5%;
+  
+  @media (max-width: 768px) {
+    padding: 20px 5%;
+  }
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 13px;
+    color: $text-secondary;
+  }
+  
+  a {
+    width: 32px;
+    height: 32px;
+    background: $bg-hover;
+    border: 1px solid $border;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-secondary;
+    transition: all 0.2s ease;
+    
+    svg {
+      font-size: 16px !important;
+    }
+    
+    &:hover {
+      border-color: $accent-blue;
+      color: $text-primary;
+    }
+  }
+}

@@ -60,3 +60,10 @@ a:hover {
 button {
   font-family: inherit;
 }
+
+/* FontAwesome 아이콘 기본 크기 설정 */
+svg:not(:root).svg-inline--fa {
+  width: 1em !important;
+  height: 1em !important;
+  vertical-align: -0.125em !important;
+}
