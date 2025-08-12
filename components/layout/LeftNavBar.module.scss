@@ -110,3 +110,29 @@
     display: block;
   }
 }
+
+.divider {
+  height: 1px;
+  background: #3a3a3a;
+  margin: 10px 15px;
+}
+
+.userInfo {
+  .navItem {
+    cursor: default;
+    opacity: 0.8;
+    
+    &:hover {
+      background: transparent;
+      transform: none;
+    }
+    
+    .label {
+      font-size: 13px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 160px;
+    }
+  }
+}
