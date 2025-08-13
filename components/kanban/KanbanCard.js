@@ -11,7 +11,10 @@ import {
   faCalendar,
   faUser,
   faTimes,
-  faSave
+  faSave,
+  faCheckSquare,
+  faCheck,
+  faSquare
 } from '@fortawesome/free-solid-svg-icons';
 import styles from './KanbanCard.module.scss';
 
@@ -123,6 +126,17 @@ const KanbanCard = ({ card, columnId, board, boardId, onDragStart, onDelete, onE
     onEdit(columnId, card.id, updatedCard);
   };
 
+  // 체크리스트 진행률 계산
+  const getChecklistProgress = () => {
+    if (!card.checklist || card.checklist.length === 0) return null;
+    const completed = card.checklist.filter(item => item.completed).length;
+    const total = card.checklist.length;
+    const percentage = Math.round((completed / total) * 100);
+    return { completed, total, percentage };
+  };
+
+  const checklistProgress = getChecklistProgress();
+
   return (
     <>
       <div 
@@ -176,6 +190,34 @@ const KanbanCard = ({ card, columnId, board, boardId, onDragStart, onDelete, onE
 
       <div className={styles.cardFooter}>
         <div className={styles.cardMeta}>
+          {checklistProgress && (
+            <div className={styles.metaItem}>
+              <FontAwesomeIcon icon={faCheckSquare} />
+              <span>{checklistProgress.completed}/{checklistProgress.total}</span>
+              <div className={styles.checklistProgressBar}>
+                <div 
+                  className={styles.checklistProgressFill}
+                  style={{ width: `${checklistProgress.percentage}%` }}
+                />
+              </div>
+              <div className={styles.checklistTooltip}>
+                <div className={styles.checklistTooltipHeader}>
+                  체크리스트 ({checklistProgress.percentage}% 완료)
+                </div>
+                <div className={styles.checklistTooltipContent}>
+                  {card.checklist.map((item, index) => (
+                    <div 
+                      key={item.id || index} 
+                      className={`${styles.checklistTooltipItem} ${item.completed ? styles.completed : styles.pending}`}
+                    >
+                      <FontAwesomeIcon icon={item.completed ? faCheck : faSquare} />
+                      <span>{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
           {card.dueDate && (
             <div className={styles.metaItem}>
               <FontAwesomeIcon icon={faCalendar} />

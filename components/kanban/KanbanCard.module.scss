@@ -166,12 +166,114 @@
   gap: 4px;
   font-size: 11px;
   color: #95a5a6;
+  position: relative;
 
   svg {
     font-size: 10px !important;
     width: 10px !important;
     height: 10px !important;
   }
+}
+
+.checklistProgressBar {
+  width: 40px;
+  height: 4px;
+  background: #e8eaf0;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-left: 4px;
+}
+
+.checklistProgressFill {
+  height: 100%;
+  background: #48dbfb;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.checklistTooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.2s, transform 0.2s;
+  margin-bottom: 5px;
+  min-width: 200px;
+  max-width: 300px;
+  white-space: normal;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    border: 5px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+  }
+}
+
+.metaItem:hover .checklistTooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.checklistTooltipContent {
+  max-height: 200px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+}
+
+.checklistTooltipItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0;
+  
+  svg {
+    flex-shrink: 0;
+    font-size: 10px !important;
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  &.completed {
+    color: #48dbfb;
+    text-decoration: line-through;
+    opacity: 0.8;
+  }
+
+  &.pending {
+    color: #fff;
+  }
+}
+
+.checklistTooltipHeader {
+  font-weight: 600;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 // Edit Mode Styles
