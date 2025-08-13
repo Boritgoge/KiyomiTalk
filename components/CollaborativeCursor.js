@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import styles from '../styles/CollaborativeCursor.module.scss';
 
 const CollaborativeCursor = ({ cursor, editor, colorIndex }) => {
@@ -129,10 +130,12 @@ const CollaborativeCursor = ({ cursor, editor, colorIndex }) => {
       }}
     >
       {user?.photoURL ? (
-        <img 
+        <Image 
           src={user.photoURL} 
           alt={user.displayName || '익명'} 
           className={styles.avatar}
+          width={16}
+          height={16}
           onError={(e) => {
             e.target.style.display = 'none';
           }}

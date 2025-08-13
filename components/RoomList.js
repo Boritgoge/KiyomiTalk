@@ -37,7 +37,7 @@ const RoomList = () => {
 
   useEffect(() => {
     loadRooms()
-  }, [db])
+  }, [])
 
   useEffect(() => {
       inputToggle && inputRef.current.focus()

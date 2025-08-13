@@ -122,7 +122,7 @@ const RoomVSCode = () => {
         removeByPath(`rooms/${roomId}/cursors/${loginUser.uid}`);
       }
     };
-  }, [db, roomId, loginUser, userColors]);
+  }, [roomId, loginUser, userColors]);
 
   useEffect(() => {
     if(locked && (!members || !members[loginUser.uid])) return;
@@ -633,7 +633,11 @@ const RoomVSCode = () => {
                             <span className={styles.regdate}>{moment(regdate).format('HH:mm')}</span>
                           </div>
                           <div className={styles.messageBody}>
-                            {imagePath ? <img src={imagePath} alt="Shared" /> : <span>{message}</span>}
+                            {imagePath ? (
+                              <img src={imagePath} alt="Shared" style={{maxWidth: '100%', borderRadius: '4px', marginTop: '4px'}} />
+                            ) : (
+                              <span>{message}</span>
+                            )}
                           </div>
                         </div>
                       </li>

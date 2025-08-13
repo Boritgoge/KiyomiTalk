@@ -9,9 +9,9 @@ import {
   faUsers,
   faCode,
   faTerminal,
-  faArrowRight,
-  faGithub
+  faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import styles from '../styles/LandingPage.module.scss';
 
 export default function Home() {
