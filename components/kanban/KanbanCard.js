@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/atoms';
 import CardDetailModal from './CardDetailModal';
@@ -22,10 +22,24 @@ const KanbanCard = ({ card, columnId, board, boardId, onDragStart, onDelete, onE
   const [editedPriority, setEditedPriority] = useState(card.priority);
   const [showActions, setShowActions] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
+  const [assigneeNames, setAssigneeNames] = useState([]);
   const loginUser = useRecoilValue(userState);
   
   // 게스트 여부 확인
   const isGuest = !loginUser || loginUser.providerId === 'mock' || loginUser.providerId === 'guest';
+
+  // 담당자 이름 가져오기
+  useEffect(() => {
+    if (card.assignees && card.assignees.length > 0 && board && board.members) {
+      const names = card.assignees.map(userId => {
+        const member = board.members[userId];
+        return member ? (member.displayName || member.email || '익명') : '알 수 없음';
+      });
+      setAssigneeNames(names);
+    } else {
+      setAssigneeNames([]);
+    }
+  }, [card.assignees, board]);
 
   const handleSaveEdit = () => {
     onEdit(columnId, card.id, {
@@ -168,10 +182,10 @@ const KanbanCard = ({ card, columnId, board, boardId, onDragStart, onDelete, onE
               <span>{card.dueDate}</span>
             </div>
           )}
-          {card.assignee && (
+          {assigneeNames.length > 0 && (
             <div className={styles.metaItem}>
               <FontAwesomeIcon icon={faUser} />
-              <span>{card.assignee}</span>
+              <span>{assigneeNames.join(', ')}</span>
             </div>
           )}
         </div>
