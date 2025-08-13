@@ -13,8 +13,8 @@ export const LoginChecker = () => {
     if (user) {
       setUser(user)
       // Don't redirect if user exists
-    } else if (router.pathname !== '/login' && router.pathname !== '/tools') {
-      // Only redirect to login if not already on login page or tools page
+    } else if (router.pathname !== '/login' && router.pathname !== '/tools' && !router.pathname.includes('/invite')) {
+      // Only redirect to login if not already on login page, tools page, or invite page
       router.push('/login')
     }
   }, [router, setUser])
