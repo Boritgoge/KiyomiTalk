@@ -239,13 +239,6 @@ const InvitePage = () => {
                   </>
                 )}
               </button>
-              
-              <button 
-                className={styles.cancelBtn}
-                onClick={() => router.push('/kanban')}
-              >
-                취소
-              </button>
             </div>
           </>
         )}

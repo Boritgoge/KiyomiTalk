@@ -76,22 +76,28 @@ const LoginPage = () => {
               e.currentTarget.style.textDecoration = 'none';
             }}
             onClick={async () => {
-              const user = await FirebaseAuth.signInWithGoogle()
-              LocalStorage.setItem('cachedUser', user)
-              setUser(user)
-              
-              // 로그인 후 리다이렉트 처리
-              const redirectUrl = sessionStorage.getItem('redirectAfterLogin')
-              const inviteCode = sessionStorage.getItem('inviteCode')
-              
-              if (inviteCode) {
-                sessionStorage.removeItem('inviteCode')
-                router.push(`/kanban/invite/${inviteCode}`)
-              } else if (redirectUrl) {
-                sessionStorage.removeItem('redirectAfterLogin')
-                router.push(redirectUrl)
-              } else {
-                router.push('/')
+              try {
+                const user = await FirebaseAuth.signInWithGoogle()
+                if (user && user.uid) {
+                  LocalStorage.setItem('cachedUser', user)
+                  setUser(user)
+                  
+                  // 로그인 후 리다이렉트 처리
+                  const inviteCode = sessionStorage.getItem('inviteCode')
+                  const redirectUrl = sessionStorage.getItem('redirectAfterLogin')
+                  
+                  if (inviteCode) {
+                    sessionStorage.removeItem('inviteCode')
+                    router.push(`/kanban/invite/${inviteCode}`)
+                  } else if (redirectUrl) {
+                    sessionStorage.removeItem('redirectAfterLogin')
+                    router.push(redirectUrl)
+                  } else {
+                    router.push('/')
+                  }
+                }
+              } catch (error) {
+                console.error('Login failed:', error)
               }
             }}
           >
@@ -135,22 +141,28 @@ const LoginPage = () => {
               e.currentTarget.style.textDecoration = 'none';
             }}
             onClick={async () => {
-              const user = await FirebaseAuth.signInWithGithub()
-              LocalStorage.setItem('cachedUser', user)
-              setUser(user)
-              
-              // 로그인 후 리다이렉트 처리
-              const redirectUrl = sessionStorage.getItem('redirectAfterLogin')
-              const inviteCode = sessionStorage.getItem('inviteCode')
-              
-              if (inviteCode) {
-                sessionStorage.removeItem('inviteCode')
-                router.push(`/kanban/invite/${inviteCode}`)
-              } else if (redirectUrl) {
-                sessionStorage.removeItem('redirectAfterLogin')
-                router.push(redirectUrl)
-              } else {
-                router.push('/')
+              try {
+                const user = await FirebaseAuth.signInWithGithub()
+                if (user && user.uid) {
+                  LocalStorage.setItem('cachedUser', user)
+                  setUser(user)
+                  
+                  // 로그인 후 리다이렉트 처리
+                  const inviteCode = sessionStorage.getItem('inviteCode')
+                  const redirectUrl = sessionStorage.getItem('redirectAfterLogin')
+                  
+                  if (inviteCode) {
+                    sessionStorage.removeItem('inviteCode')
+                    router.push(`/kanban/invite/${inviteCode}`)
+                  } else if (redirectUrl) {
+                    sessionStorage.removeItem('redirectAfterLogin')
+                    router.push(redirectUrl)
+                  } else {
+                    router.push('/')
+                  }
+                }
+              } catch (error) {
+                console.error('Login failed:', error)
               }
             }}
           >
