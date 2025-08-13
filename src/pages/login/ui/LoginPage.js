@@ -239,9 +239,17 @@ const LoginPage = () => {
                 providerId: 'guest',
                 emailVerified: false
               }
-              LocalStorage.setItem('cachedUser', guestUser)
+              // 게스트는 LocalStorage에 저장하지 않음
               setUser(guestUser)
-              router.push('/')
+              
+              // 초대 코드가 있으면 초대 링크로, 없으면 홈으로 이동
+              const inviteCode = sessionStorage.getItem('inviteCode')
+              if (inviteCode) {
+                sessionStorage.removeItem('inviteCode')
+                router.push(`/kanban/invite/${inviteCode}`)
+              } else {
+                router.push('/')
+              }
             }}
           >
             <span style={{

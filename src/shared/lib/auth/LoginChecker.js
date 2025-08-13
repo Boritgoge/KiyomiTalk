@@ -10,12 +10,19 @@ export const LoginChecker = () => {
   
   useEffect(() => {
     const user = LocalStorage.getItem('cachedUser')
-    if (user) {
+    
+    if (user && user.uid) {
+      // 정상적인 사용자 (게스트 제외)
       setUser(user)
-      // Don't redirect if user exists
-    } else if (router.pathname !== '/login' && router.pathname !== '/tools' && !router.pathname.includes('/invite')) {
-      // Only redirect to login if not already on login page, tools page, or invite page
-      router.push('/login')
+    } else {
+      // 로그인이 필요한 페이지에서만 리다이렉트
+      const publicPaths = ['/login', '/tools', '/', '/editor']
+      const isPublicPath = publicPaths.includes(router.pathname) || 
+                          router.pathname.includes('/invite')
+      
+      if (!isPublicPath) {
+        router.push('/login')
+      }
     }
   }, [router, setUser])
   
