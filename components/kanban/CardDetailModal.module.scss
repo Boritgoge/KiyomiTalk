@@ -341,10 +341,34 @@
   padding: 8px;
   background: #f8f9fa;
   border-radius: 6px;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f0f2f5;
+  }
 
   input[type="checkbox"] {
     width: 16px;
     height: 16px;
+  }
+
+  .checklistText {
+    flex: 1;
+    font-size: 14px;
+    color: #2c3e50;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    &.completed {
+      text-decoration: line-through;
+      color: #95a5a6;
+    }
   }
 
   span {
@@ -356,6 +380,81 @@
       text-decoration: line-through;
       color: #95a5a6;
     }
+  }
+}
+
+.checklistEditWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.checklistEditInput {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #667eea;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+  }
+}
+
+.checklistActions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.checklistItem:hover .checklistActions {
+  opacity: 1;
+}
+
+.editItemBtn {
+  background: none;
+  border: none;
+  color: #95a5a6;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s ease;
+
+  svg {
+    font-size: 12px !important;
+  }
+
+  &:hover {
+    color: #667eea;
+  }
+}
+
+.saveChecklistBtn,
+.cancelChecklistBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.saveChecklistBtn {
+  color: #48dbfb;
+  
+  &:hover {
+    background: rgba(72, 219, 251, 0.1);
+  }
+}
+
+.cancelChecklistBtn {
+  color: #ff6b6b;
+  
+  &:hover {
+    background: rgba(255, 107, 107, 0.1);
   }
 }
 

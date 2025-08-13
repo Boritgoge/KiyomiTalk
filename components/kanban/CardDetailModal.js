@@ -34,6 +34,8 @@ const CardDetailModal = ({ card, board, boardId, onClose, onUpdate }) => {
   const [newTag, setNewTag] = useState('');
   const [checklist, setChecklist] = useState(card.checklist || []);
   const [newChecklistItem, setNewChecklistItem] = useState('');
+  const [editingChecklistItem, setEditingChecklistItem] = useState(null);
+  const [editingChecklistText, setEditingChecklistText] = useState('');
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [activities, setActivities] = useState([]);
@@ -180,6 +182,28 @@ const CardDetailModal = ({ card, board, boardId, onClose, onUpdate }) => {
     const updatedChecklist = checklist.filter(item => item.id !== itemId);
     setChecklist(updatedChecklist);
     updateByPath(`cards/${boardId}/${card.id}/checklist`, updatedChecklist);
+  };
+
+  const handleStartEditChecklistItem = (item) => {
+    setEditingChecklistItem(item.id);
+    setEditingChecklistText(item.text);
+  };
+
+  const handleSaveEditChecklistItem = (itemId) => {
+    if (!editingChecklistText.trim()) return;
+    
+    const updatedChecklist = checklist.map(item =>
+      item.id === itemId ? { ...item, text: editingChecklistText } : item
+    );
+    setChecklist(updatedChecklist);
+    updateByPath(`cards/${boardId}/${card.id}/checklist`, updatedChecklist);
+    setEditingChecklistItem(null);
+    setEditingChecklistText('');
+  };
+
+  const handleCancelEditChecklistItem = () => {
+    setEditingChecklistItem(null);
+    setEditingChecklistText('');
   };
 
   const handleAddTag = () => {
@@ -573,15 +597,56 @@ const CardDetailModal = ({ card, board, boardId, onClose, onUpdate }) => {
                       checked={item.completed}
                       onChange={() => handleToggleChecklistItem(item.id)}
                     />
-                    <span className={item.completed ? styles.completed : ''}>
-                      {item.text}
-                    </span>
-                    <button
-                      className={styles.deleteItemBtn}
-                      onClick={() => handleDeleteChecklistItem(item.id)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </button>
+                    {editingChecklistItem === item.id ? (
+                      <div className={styles.checklistEditWrapper}>
+                        <input
+                          type="text"
+                          value={editingChecklistText}
+                          onChange={(e) => setEditingChecklistText(e.target.value)}
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter') handleSaveEditChecklistItem(item.id);
+                            if (e.key === 'Escape') handleCancelEditChecklistItem();
+                          }}
+                          className={styles.checklistEditInput}
+                          autoFocus
+                        />
+                        <button
+                          className={styles.saveChecklistBtn}
+                          onClick={() => handleSaveEditChecklistItem(item.id)}
+                        >
+                          <FontAwesomeIcon icon={faCheck} />
+                        </button>
+                        <button
+                          className={styles.cancelChecklistBtn}
+                          onClick={handleCancelEditChecklistItem}
+                        >
+                          <FontAwesomeIcon icon={faTimes} />
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <span 
+                          className={`${styles.checklistText} ${item.completed ? styles.completed : ''}`}
+                          onClick={() => handleStartEditChecklistItem(item)}
+                        >
+                          {item.text}
+                        </span>
+                        <div className={styles.checklistActions}>
+                          <button
+                            className={styles.editItemBtn}
+                            onClick={() => handleStartEditChecklistItem(item)}
+                          >
+                            <FontAwesomeIcon icon={faEdit} />
+                          </button>
+                          <button
+                            className={styles.deleteItemBtn}
+                            onClick={() => handleDeleteChecklistItem(item.id)}
+                          >
+                            <FontAwesomeIcon icon={faTrash} />
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 ))}
                 <div className={styles.addChecklistItem}>
