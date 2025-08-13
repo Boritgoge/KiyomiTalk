@@ -161,7 +161,7 @@ const KanbanCard = ({ card, columnId, board, boardId, onDragStart, onDelete, onE
       </div>
 
       {card.description && (
-        <p className={styles.cardDescription}>{card.description}</p>
+        <div className={styles.cardDescription}>{card.description}</div>
       )}
 
       {card.tags && card.tags.length > 0 && (

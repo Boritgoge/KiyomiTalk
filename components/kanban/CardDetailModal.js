@@ -503,9 +503,9 @@ const CardDetailModal = ({ card, board, boardId, onClose, onUpdate }) => {
                   placeholder="설명을 입력하세요..."
                 />
               ) : (
-                <p className={styles.description}>
+                <div className={styles.description}>
                   {description || '설명이 없습니다.'}
-                </p>
+                </div>
               )}
             </div>
 
