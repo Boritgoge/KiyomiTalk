@@ -78,6 +78,8 @@ const LoginPage = () => {
             onClick={async () => {
               try {
                 const user = await FirebaseAuth.signInWithGoogle()
+                console.log('Login successful:', user)
+                
                 if (user && user.uid) {
                   LocalStorage.setItem('cachedUser', user)
                   setUser(user)
@@ -86,15 +88,21 @@ const LoginPage = () => {
                   const inviteCode = sessionStorage.getItem('inviteCode')
                   const redirectUrl = sessionStorage.getItem('redirectAfterLogin')
                   
-                  if (inviteCode) {
-                    sessionStorage.removeItem('inviteCode')
-                    router.push(`/kanban/invite/${inviteCode}`)
-                  } else if (redirectUrl) {
-                    sessionStorage.removeItem('redirectAfterLogin')
-                    router.push(redirectUrl)
-                  } else {
-                    router.push('/')
-                  }
+                  console.log('Redirect check - inviteCode:', inviteCode, 'redirectUrl:', redirectUrl)
+                  
+                  // setTimeout으로 리다이렉트 지연
+                  setTimeout(() => {
+                    if (inviteCode) {
+                      console.log('Redirecting to invite:', `/kanban/invite/${inviteCode}`)
+                      sessionStorage.removeItem('inviteCode')
+                      window.location.href = `/kanban/invite/${inviteCode}`
+                    } else if (redirectUrl) {
+                      sessionStorage.removeItem('redirectAfterLogin')
+                      window.location.href = redirectUrl
+                    } else {
+                      window.location.href = '/'
+                    }
+                  }, 100)
                 }
               } catch (error) {
                 console.error('Login failed:', error)
@@ -143,6 +151,8 @@ const LoginPage = () => {
             onClick={async () => {
               try {
                 const user = await FirebaseAuth.signInWithGithub()
+                console.log('Login successful:', user)
+                
                 if (user && user.uid) {
                   LocalStorage.setItem('cachedUser', user)
                   setUser(user)
@@ -151,15 +161,21 @@ const LoginPage = () => {
                   const inviteCode = sessionStorage.getItem('inviteCode')
                   const redirectUrl = sessionStorage.getItem('redirectAfterLogin')
                   
-                  if (inviteCode) {
-                    sessionStorage.removeItem('inviteCode')
-                    router.push(`/kanban/invite/${inviteCode}`)
-                  } else if (redirectUrl) {
-                    sessionStorage.removeItem('redirectAfterLogin')
-                    router.push(redirectUrl)
-                  } else {
-                    router.push('/')
-                  }
+                  console.log('Redirect check - inviteCode:', inviteCode, 'redirectUrl:', redirectUrl)
+                  
+                  // setTimeout으로 리다이렉트 지연
+                  setTimeout(() => {
+                    if (inviteCode) {
+                      console.log('Redirecting to invite:', `/kanban/invite/${inviteCode}`)
+                      sessionStorage.removeItem('inviteCode')
+                      window.location.href = `/kanban/invite/${inviteCode}`
+                    } else if (redirectUrl) {
+                      sessionStorage.removeItem('redirectAfterLogin')
+                      window.location.href = redirectUrl
+                    } else {
+                      window.location.href = '/'
+                    }
+                  }, 100)
                 }
               } catch (error) {
                 console.error('Login failed:', error)
