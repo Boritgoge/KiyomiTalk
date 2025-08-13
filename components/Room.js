@@ -1,3 +1,13 @@
+import RoomVSCode from './RoomVSCode';
+
+const Room = () => {
+  return <RoomVSCode />;
+};
+
+export default Room;
+
+// Original Room component code below (now replaced with RoomVSCode)
+/*
 import { useState, useEffect, useRef } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { roomIdState, roomTitleState, userState } from '../recoil/atoms';
@@ -14,7 +24,7 @@ import { copyToClipboard } from './common/CommonUtil';
 import { Popover } from '@headlessui/react'
 
 
-const Room = () => {
+const RoomOriginal = () => {
   const [chats, setChats] = useState([])
   const [message, setMessage] = useState('')
   const [creator, setCreator] = useState('')
@@ -347,4 +357,5 @@ const Room = () => {
   </>
 }
 
-export default Room
+export default Room;
+*/

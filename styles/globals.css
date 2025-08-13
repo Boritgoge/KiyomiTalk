@@ -67,3 +67,127 @@ ol, ul {
 ::-webkit-scrollbar-thumb:hover {
   background: #4e4e4e;
 }
+
+/* Monaco Editor Collaborative Cursors */
+.cursor-line-guest_1 {
+  border-left: 2px solid #ff6b6b !important;
+}
+
+.cursor-line-guest_2 {
+  border-left: 2px solid #4ecdc4 !important;
+}
+
+.cursor-line-guest_3 {
+  border-left: 2px solid #45b7d1 !important;
+}
+
+.cursor-line-guest_4 {
+  border-left: 2px solid #f9ca24 !important;
+}
+
+.cursor-line-guest_5 {
+  border-left: 2px solid #6c5ce7 !important;
+}
+
+.cursor-line-guest_6 {
+  border-left: 2px solid #a29bfe !important;
+}
+
+.cursor-line-guest_7 {
+  border-left: 2px solid #fd79a8 !important;
+}
+
+.cursor-line-guest_8 {
+  border-left: 2px solid #00b894 !important;
+}
+
+/* Selection highlighting for each user */
+.selection-guest_1 {
+  background-color: rgba(255, 107, 107, 0.3) !important;
+}
+
+.selection-guest_2 {
+  background-color: rgba(78, 205, 196, 0.3) !important;
+}
+
+.selection-guest_3 {
+  background-color: rgba(69, 183, 209, 0.3) !important;
+}
+
+.selection-guest_4 {
+  background-color: rgba(249, 202, 36, 0.3) !important;
+}
+
+.selection-guest_5 {
+  background-color: rgba(108, 92, 231, 0.3) !important;
+}
+
+.selection-guest_6 {
+  background-color: rgba(162, 155, 254, 0.3) !important;
+}
+
+.selection-guest_7 {
+  background-color: rgba(253, 121, 168, 0.3) !important;
+}
+
+.selection-guest_8 {
+  background-color: rgba(0, 184, 148, 0.3) !important;
+}
+
+/* Generic cursor classes for any user ID */
+[class*="cursor-line-"] {
+  position: relative;
+  animation: cursorBlink 1s infinite;
+}
+
+[class*="cursor-line-"]::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: currentColor;
+}
+
+[class*="selection-"] {
+  opacity: 0.4;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Additional cursor styles for dynamic user IDs */
+.monaco-editor [class*="cursor-"] {
+  position: relative;
+}
+
+.monaco-editor [class*="cursor-"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--cursor-color, #4ecdc4);
+  animation: cursorBlink 1s infinite;
+}
+
+/* Cursor name labels */
+.monaco-editor [class*="cursor-name-"]::after {
+  content: attr(data-user-name);
+  position: absolute;
+  top: -20px;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+  border: 1px solid var(--cursor-color, #4ecdc4);
+}

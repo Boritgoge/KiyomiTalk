@@ -1,0 +1,199 @@
+.fileExplorer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #252526;
+  color: #cccccc;
+  font-size: 13px;
+  
+  .header {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #3c3c3c;
+    
+    h3 {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #cccccc;
+      margin: 0;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 8px;
+      
+      svg {
+        cursor: pointer;
+        color: #8b8b8b;
+        font-size: 14px;
+        
+        &:hover {
+          color: #e1e1e1;
+        }
+      }
+    }
+  }
+  
+  .tree {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #464647;
+      border-radius: 5px;
+    }
+    
+    .treeItem {
+      user-select: none;
+      
+      .treeNode {
+        display: flex;
+        align-items: center;
+        padding: 2px 8px;
+        cursor: pointer;
+        position: relative;
+        
+        &:hover {
+          background: #2a2d2e;
+          
+          .actions {
+            opacity: 1;
+          }
+        }
+        
+        &.selected {
+          background: #094771;
+          
+          .name {
+            color: #ffffff;
+          }
+        }
+        
+        .icon {
+          display: flex;
+          align-items: center;
+          margin-right: 4px;
+          
+          .chevron {
+            font-size: 10px;
+            margin-right: 4px;
+            color: #8b8b8b;
+          }
+          
+          svg {
+            font-size: 14px;
+            color: #c5c5c5;
+            
+            &[data-icon="folder"],
+            &[data-icon="folder-open"] {
+              color: #dcb67a;
+            }
+            
+            &[data-icon="js"] {
+              color: #f0db4f;
+            }
+            
+            &[data-icon="react"] {
+              color: #61dafb;
+            }
+            
+            &[data-icon="python"] {
+              color: #3776ab;
+            }
+            
+            &[data-icon="java"] {
+              color: #f89820;
+            }
+            
+            &[data-icon="html5"] {
+              color: #e34c26;
+            }
+            
+            &[data-icon="css3"] {
+              color: #1572b6;
+            }
+            
+            &[data-icon="image"] {
+              color: #90a959;
+            }
+          }
+        }
+        
+        .name {
+          flex: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          color: #cccccc;
+        }
+        
+        .actions {
+          display: flex;
+          gap: 6px;
+          opacity: 0;
+          transition: opacity 0.2s;
+          position: absolute;
+          right: 8px;
+          background: inherit;
+          padding-left: 8px;
+          
+          svg {
+            font-size: 12px;
+            color: #8b8b8b;
+            cursor: pointer;
+            
+            &:hover {
+              color: #e1e1e1;
+            }
+            
+            &[data-icon="trash"]:hover {
+              color: #f48771;
+            }
+          }
+        }
+      }
+      
+      .treeChildren {
+        position: relative;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          left: 10px;
+          top: 0;
+          bottom: 0;
+          width: 1px;
+          background: #3c3c3c;
+        }
+      }
+    }
+    
+    .newItemInput {
+      padding: 4px 8px;
+      
+      input {
+        width: 100%;
+        background: #3c3c3c;
+        border: 1px solid #007acc;
+        color: #e1e1e1;
+        padding: 4px 8px;
+        font-size: 13px;
+        border-radius: 2px;
+        outline: none;
+        
+        &::placeholder {
+          color: #8b8b8b;
+        }
+      }
+    }
+  }
+}

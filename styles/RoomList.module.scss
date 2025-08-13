@@ -5,19 +5,24 @@ $bg-active: #094771;
 $border-color: #3e3e42;
 $text-color: #cccccc;
 $text-muted: #8b8b8b;
+$text-bright: #e1e1e1;
 $button-bg: #0e639c;
 $button-hover: #1177bb;
+$success: #89d185;
+$warning: #ffd700;
+$danger: #f48771;
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem;
+    padding: 10px 20px;
     font-weight: 600;
     font-size: 11px;
     text-transform: uppercase;
-    color: $text-muted;
+    color: $text-bright;
     letter-spacing: 0.5px;
+    border-bottom: 1px solid $border-color;
     
     .refreshBtn {
         font-size: 12px;
@@ -43,34 +48,48 @@ $button-hover: #1177bb;
     flex: 1;
     
     li {
-        padding: 0.5rem 1rem;
+        padding: 10px 16px;
         cursor: pointer;
         color: $text-color;
         font-size: 13px;
-        transition: background-color 0.1s;
+        transition: all 0.2s ease;
+        border-left: 2px solid transparent;
+        position: relative;
         
         &:hover {
             background-color: $bg-hover;
+            border-left-color: $text-muted;
         }
         
         &.selected {
             background-color: $bg-active;
             color: white;
+            border-left-color: $button-bg;
+            
+            .cols a {
+                color: white;
+                font-weight: 500;
+            }
         }
 
         .cols {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 0.5rem;
+            gap: 12px;
             
             a {
                 flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                display: block;
             }
             
             svg {
-                font-size: 10px;
-                color: $text-muted;
+                font-size: 12px;
+                color: $warning;
+                flex-shrink: 0;
                 
                 &.deleteBtn {
                     color: #e74c3c;
@@ -90,18 +109,25 @@ $button-hover: #1177bb;
             justify-content: center;
             
             span {
-                min-width: 18px;
-                height: 18px;
-                padding: 0 4px;
-                border-radius: 9px;
-                font-size: 10px;
+                min-width: 20px;
+                height: 20px;
+                padding: 0 6px;
+                border-radius: 10px;
+                font-size: 11px;
                 font-weight: 600;
-                background-color: $button-bg;
+                background-color: $danger;
                 color: white;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                animation: pulse 2s infinite;
             }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
     }
 
