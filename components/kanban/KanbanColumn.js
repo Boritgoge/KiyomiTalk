@@ -23,6 +23,7 @@ const KanbanColumn = ({
   const [newCardTitle, setNewCardTitle] = useState('');
   const [newCardDescription, setNewCardDescription] = useState('');
   const [newCardPriority, setNewCardPriority] = useState('medium');
+  const [newCardCategory, setNewCardCategory] = useState('');
   const loginUser = useRecoilValue(userState);
   
   // 게스트 여부 확인
@@ -36,15 +37,18 @@ const KanbanColumn = ({
 
   const handleAddCard = () => {
     if (newCardTitle.trim()) {
+      const titleWithCategory = newCardCategory ? `[${newCardCategory}] ${newCardTitle}` : newCardTitle;
       onAddCard(column.id, {
-        title: newCardTitle,
+        title: titleWithCategory,
         description: newCardDescription,
         priority: newCardPriority,
+        category: newCardCategory,
         tags: []
       });
       setNewCardTitle('');
       setNewCardDescription('');
       setNewCardPriority('medium');
+      setNewCardCategory('');
     }
   };
 
@@ -53,6 +57,7 @@ const KanbanColumn = ({
     setNewCardTitle('');
     setNewCardDescription('');
     setNewCardPriority('medium');
+    setNewCardCategory('');
   };
 
   return (
@@ -101,6 +106,25 @@ const KanbanColumn = ({
               className={styles.cardDescriptionInput}
               rows="3"
             />
+            <div className={styles.categorySelector}>
+              <label>카테고리:</label>
+              <select 
+                value={newCardCategory} 
+                onChange={(e) => setNewCardCategory(e.target.value)}
+                className={styles.categorySelect}
+              >
+                <option value="">카테고리 선택</option>
+                <option value="공통">공통</option>
+                <option value="기획">기획</option>
+                <option value="디자인">디자인</option>
+                <option value="개발">개발</option>
+                <option value="테스트">테스트</option>
+                <option value="배포">배포</option>
+                <option value="버그">버그</option>
+                <option value="개선">개선</option>
+                <option value="문서">문서</option>
+              </select>
+            </div>
             <div className={styles.prioritySelector}>
               <label>우선순위:</label>
               <select 

@@ -88,7 +88,177 @@
   align-items: flex-start;
   margin-bottom: 10px;
   gap: 10px;
-  padding-right: 60px; // 액션 버튼 공간 확보
+  position: relative;
+}
+
+.cardHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  right: 10px;
+  top: 0;
+}
+
+.urgentBadge {
+  width: 20px;
+  height: 20px;
+  background: #ff6b6b;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 1.5s infinite;
+
+  svg {
+    font-size: 10px !important;
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 8px rgba(255, 107, 107, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+    }
+  }
+}
+
+.moreBtn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: #95a5a6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  svg {
+    font-size: 14px !important;
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  &:hover {
+    background: #f5f7fa;
+    color: #2c3e50;
+  }
+}
+
+.moreMenu {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  min-width: 200px;
+  z-index: 1000;
+  animation: slideDown 0.2s ease;
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.moreMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  color: #2c3e50;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+
+  svg {
+    font-size: 12px !important;
+    width: 12px !important;
+    height: 12px !important;
+    color: #95a5a6;
+  }
+
+  &:hover {
+    background: #f5f7fa;
+    
+    svg {
+      color: #667eea;
+    }
+  }
+}
+
+.menuDivider {
+  height: 1px;
+  background: #e8eaf0;
+  margin: 8px 0;
+}
+
+.colorPicker {
+  padding: 8px 10px;
+}
+
+.colorLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #5a6c7d;
+  margin-bottom: 10px;
+  font-weight: 500;
+
+  svg {
+    font-size: 12px !important;
+    width: 12px !important;
+    height: 12px !important;
+  }
+}
+
+.colorOptions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.colorOption {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e8eaf0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    border-color: #667eea;
+  }
+
+  &.selected {
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+  }
 }
 
 .cardTitle {
@@ -302,6 +472,7 @@
   }
 }
 
+.editCategoryWrapper,
 .editPriorityWrapper {
   display: flex;
   align-items: center;
@@ -315,6 +486,7 @@
   }
 }
 
+.editCategorySelect,
 .editPrioritySelect {
   padding: 5px 10px;
   border: 1px solid #ddd;

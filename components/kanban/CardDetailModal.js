@@ -25,7 +25,20 @@ import styles from './CardDetailModal.module.scss';
 
 const CardDetailModal = ({ card, board, boardId, onClose, onUpdate }) => {
   const [editMode, setEditMode] = useState(false);
-  const [title, setTitle] = useState(card.title);
+  
+  // 제목에서 카테고리 추출
+  const extractCategoryFromTitle = (titleStr) => {
+    const match = titleStr.match(/^\[([^\]]+)\]\s*(.+)/);
+    if (match) {
+      return { category: match[1], titleWithoutCategory: match[2] };
+    }
+    return { category: '', titleWithoutCategory: titleStr };
+  };
+  
+  const { category: initialCategory, titleWithoutCategory } = extractCategoryFromTitle(card.title);
+  
+  const [title, setTitle] = useState(titleWithoutCategory);
+  const [category, setCategory] = useState(card.category || initialCategory || '');
   const [description, setDescription] = useState(card.description || '');
   const [priority, setPriority] = useState(card.priority || 'medium');
   const [dueDate, setDueDate] = useState(card.dueDate || '');
@@ -65,9 +78,11 @@ const CardDetailModal = ({ card, board, boardId, onClose, onUpdate }) => {
   }, [card, boardId]);
 
   const handleSave = () => {
+    const titleWithCategory = category ? `[${category}] ${title}` : title;
     const updatedCard = {
       ...card,
-      title,
+      title: titleWithCategory,
+      category,
       description,
       priority,
       dueDate,
@@ -371,15 +386,37 @@ const CardDetailModal = ({ card, board, boardId, onClose, onUpdate }) => {
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
           {editMode ? (
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className={styles.titleInput}
-              autoFocus
-            />
+            <div className={styles.headerEditWrapper}>
+              <select 
+                value={category} 
+                onChange={(e) => setCategory(e.target.value)}
+                className={styles.categorySelect}
+              >
+                <option value="">카테고리 없음</option>
+                <option value="공통">공통</option>
+                <option value="기획">기획</option>
+                <option value="디자인">디자인</option>
+                <option value="개발">개발</option>
+                <option value="테스트">테스트</option>
+                <option value="배포">배포</option>
+                <option value="버그">버그</option>
+                <option value="개선">개선</option>
+                <option value="문서">문서</option>
+              </select>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className={styles.titleInput}
+                placeholder="제목을 입력하세요"
+                autoFocus
+              />
+            </div>
           ) : (
-            <h2>{card.title}</h2>
+            <h2>
+              {category && <span className={styles.categoryBadge}>[{category}]</span>}
+              {title || card.title}
+            </h2>
           )}
           <div className={styles.headerActions}>
             {editMode ? (
